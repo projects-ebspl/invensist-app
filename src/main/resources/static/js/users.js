@@ -1,7 +1,7 @@
 $(document).ready(function() {
-	
+
 	var service = new UserService();
-	
+
 	var table = $('#users-table').DataTable({
 		select: {
 			style: 'single'
@@ -14,15 +14,17 @@ $(document).ready(function() {
 			{
 				text: '<i class="fa fa-plus fa-fw"></i>',
 				action: function () {
-					alert( 'Add User' );
+					$("#userDialogTitle").text("Add User");
 				},
+				name: 'addUser',
 				titleAttr: 'Add User'
 			},
 			{
 				text: '<i class="fa fa-pencil fa-fw"></i>',
 				action: function () {
-					alert( 'Edit User' );
+					$("#userDialogTitle").text("Edit User");
 				},
+				name: 'editUser',
 				titleAttr: 'Edit User'
 			},
 			{
@@ -41,8 +43,11 @@ $(document).ready(function() {
 				},
 				titleAttr: 'Delete User'
 			}
-		]
+			]
 	});
+
+	table.button( 'addUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
+	table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
 	
 	
 	service

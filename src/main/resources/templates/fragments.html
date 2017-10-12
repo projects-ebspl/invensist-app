@@ -42,12 +42,16 @@
 	
 	<!-- Custom Fonts -->
 	<link rel="stylesheet" type="text/css"
+		th:href="@{/vendor/invensist/css/invensist.modal.css}" />
+
+	<!-- Custom Fonts -->
+	<link rel="stylesheet" type="text/css"
 		th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" />
 	
 	<!-- App CSS  -->
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	
-	
+
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -180,6 +184,7 @@
 	<script th:src="@{/dist/js/sb-admin-2.js}"></script>
 	<script th:src="@{/vendor/extend/extend.min.js}"></script>
 	<script th:src="@{/js/service.js}"></script>
+	<script th:src="@{/vendor/invensist/js/invensist.modal.js}"></script>
 	<script type="text/javascript">
 		var contextRoot = $("#context").val();
 		contextRoot = contextRoot.substring(0, contextRoot.length-1);;

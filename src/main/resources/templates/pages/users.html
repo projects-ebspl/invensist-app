@@ -6,7 +6,7 @@
 <body>
 	<div id="wrapper">
 		<div th:replace="fragments :: navigation"></div>
-        <div id="page-wrapper">
+		<div id="page-wrapper">
 			<!-- /.row -->
 			<div class="row">&nbsp;</div>
 			<!-- /.row -->
@@ -16,7 +16,8 @@
 						<div class="panel-heading">Manage Users</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
-							<table width="100%" class="table table-bordered table-hover" id="users-table">
+							<table width="100%" class="table table-bordered table-hover"
+								id="users-table">
 								<thead>
 									<tr>
 										<th>First Name</th>
@@ -60,11 +61,74 @@
 					</div>
 				</div>
 			</div>
-		<!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
+			<!-- /.row -->
+		</div>
+		<!-- /#page-wrapper -->
 	</div>
-	
+
+	<!-- Modal HTML -->
+	<div id="userDialog" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="userDialogTitle"></h4>
+				</div>
+				<div class="modal-body">
+				<form class="form-horizontal">
+				    <div class="form-group">
+				        <label for="firstName" class="control-label col-xs-4">First Name</label>
+				        <div class="col-xs-5">
+				            <input type="text" class="form-control" id="firstName" placeholder="First Name"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="lastName" class="control-label col-xs-4">Last Name</label>
+				        <div class="col-xs-5">
+				            <input type="text" class="form-control" id="lastName" placeholder="Last Name"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="email" class="control-label col-xs-4">Email</label>
+				        <div class="col-xs-5">
+				            <input type="email" class="form-control" id="email" placeholder="Email"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="phone" class="control-label col-xs-4">Phone</label>
+				        <div class="col-xs-5">
+				            <input type="tel" class="form-control" id="phone" placeholder="Phone"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="address" class="control-label col-xs-4">Address</label>
+				        <div class="col-xs-5">
+				            <textarea class="form-control" id="address" placeholder="Address"></textarea>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="password" class="control-label col-xs-4">Password</label>
+				        <div class="col-xs-5">
+				            <input type="password" class="form-control" id="password" placeholder="Password"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="confirmPassword" class="control-label col-xs-4">Confirm Password</label>
+				        <div class="col-xs-5">
+				            <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password"/>
+				        </div>
+				    </div>
+				</form>				
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div th:replace="fragments :: scripts"></div>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script th:src="@{/js/users.js}"></script>
