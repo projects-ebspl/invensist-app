@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	
+	var service = new UserService();
+	
 	var table = $('#users-table').DataTable({
 		select: {
 			style: 'single'
@@ -25,7 +28,16 @@ $(document).ready(function() {
 			{
 				text: '<i class="fa fa-trash-o fa-fw"></i>',
 				action: function () {
-					alert( 'Delete User' );
+					var rows = table.rows({selected: true});
+					if(rows.count() == 0) {
+						alert("Please select a user to delete.");
+					} else {
+						service.deleteUser({
+							userId : (rows.data()[0][4])
+						}).done(function(data) {
+							alert(data.message);
+						});
+					}
 				},
 				titleAttr: 'Delete User'
 			}
@@ -33,11 +45,11 @@ $(document).ready(function() {
 	});
 	
 	
-	new UserService()
+	service
 	.getUsers()
 	.done(function(data){
 		for (user in data) {
-			table.row.add([data[user].firstName, data[user].lastName, data[user].email, data[user].phone]).draw(false);
+			table.row.add([data[user].firstName, data[user].lastName, data[user].email, data[user].phone, data[user].id]).draw(false);
 		}
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {

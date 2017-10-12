@@ -1,6 +1,7 @@
 package com.invensist.models;
 
 public class UserModel {
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -35,5 +36,11 @@ public class UserModel {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
