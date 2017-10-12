@@ -163,6 +163,7 @@
     <!-- /.navbar-static-side -->
 </nav>
 <div th:fragment="scripts">
+	<input id="context" th:value="@{/}" type="hidden"/>
 	<!-- jQuery -->
 	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 	<!-- Bootstrap Core JavaScript -->
@@ -177,5 +178,11 @@
 	<script th:src="@{/vendor/datatables/js/dataTables.buttons.min.js}"></script>
 	<!-- Custom Theme JavaScript -->
 	<script th:src="@{/dist/js/sb-admin-2.js}"></script>
+	<script th:src="@{/vendor/extend/extend.min.js}"></script>
+	<script th:src="@{/js/service.js}"></script>
+	<script type="text/javascript">
+		var contextRoot = $("#context").val();
+		contextRoot = contextRoot.substring(0, contextRoot.length-1);;
+	</script>
 </div>
 
