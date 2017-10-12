@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments :: header"></div>
+
+<body>
+
+	<div id="wrapper">
+		<div th:replace="fragments :: navigation"></div>
+        <div id="page-wrapper">
+			<!-- /.row -->
+			<div class="row">&nbsp;</div>
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Manage Users</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<table width="100%" class="table table-bordered table-hover"
+								id="users-table">
+								<thead>
+									<tr>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Email</th>
+										<th>Phone</th>
+									</tr>
+								</thead>
+							</table>
+							<!-- /.table-responsive -->
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12 user-properties hidden">
+					<div class="panel panel-default">
+						<div class="panel-heading">User Properties</div>
+						<div class="panel-body">
+							<ul class="nav nav-pills">
+								<li class="active"><a href="#1a" data-toggle="tab">Info</a>
+								</li>
+								<li><a href="#2a" data-toggle="tab">Stores</a></li>
+							</ul>
+							<div class="tab-content clearfix">
+								<div class="tab-pane active" id="1a">
+									<div class="panel-body">
+										<h4>Info</h4>
+									</div>
+								</div>
+								<div class="tab-pane" id="2a">
+									<h4>Stores</h4>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		<!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+	</div>
+	
+	<div th:replace="fragments :: scripts"></div>
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+	<script>
+	    $(document).ready(function() {
+            var table = $('#users-table').DataTable({
+            	select: {
+                    style: 'single'
+                },
+                scrollY: '30vh',
+                scrollX: '100vh',
+                scrollCollapse: false,
+                dom: 'Bfrtip',
+                buttons: [
+                	{
+	                	text: '<i class="fa fa-plus fa-fw"></i>',
+	                    action: function () {
+	                    	alert( 'Add User' );
+	                    },
+	                    titleAttr: 'Add User'
+                	},
+                	{
+	                	text: '<i class="fa fa-pencil fa-fw"></i>',
+	                    action: function () {
+	                    	alert( 'Edit User' );
+	                    },
+	                    titleAttr: 'Edit User'
+                	},
+                	{
+	                	text: '<i class="fa fa-trash-o fa-fw"></i>',
+	                    action: function () {
+	                    	alert( 'Delete User' );
+	                    },
+	                    titleAttr: 'Delete User'
+                	}
+                ]
+            });
+            
+            table.row.add(['Mayuresh', 'Halshikar', 'mayuresh@invensist.com', '8975823363']).draw(false);
+            table.row.add(['Prasad', 'Wagh', 'prasad@invensist.com', '9875823363']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Mayuresh', 'Halshikar', 'mayuresh@invensist.com', '8975823363']).draw(false);
+            table.row.add(['Prasad', 'Wagh', 'prasad@invensist.com', '9875823363']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Mayuresh', 'Halshikar', 'mayuresh@invensist.com', '8975823363']).draw(false);
+            table.row.add(['Prasad', 'Wagh', 'prasad@invensist.com', '9875823363']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Mayuresh', 'Halshikar', 'mayuresh@invensist.com', '8975823363']).draw(false);
+            table.row.add(['Prasad', 'Wagh', 'prasad@invensist.com', '9875823363']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Mayuresh', 'Halshikar', 'mayuresh@invensist.com', '8975823363']).draw(false);
+            table.row.add(['Prasad', 'Wagh', 'prasad@invensist.com', '9875823363']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Mayuresh', 'Halshikar', 'mayuresh@invensist.com', '8975823363']).draw(false);
+            table.row.add(['Prasad', 'Wagh', 'prasad@invensist.com', '9875823363']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+            table.row.add(['Yogilal', 'Singh', 'yogi@invensist.com', '7775823364']).draw(false);
+            table.row.add(['Ashwin', 'Khadgi', 'shwin@invensist.com', '8865823364']).draw(false);
+
+            table.on( 'select', function ( e, dt, type, indexes ) {
+                if ( type === 'row' ) {
+                    //var data = table.rows( { selected: true } );
+                	$(".user-properties").removeClass("hidden");
+                }
+            	table.columns.adjust().draw();
+            } );
+       	});
+    </script>
+
+
+</body>
+
+</html>
