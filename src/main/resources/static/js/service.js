@@ -33,3 +33,14 @@ var StoreService = Service.extend(function() {
 
 });
 
+var AssociateService = Service.extend(function() {
+	
+	this.getAssociates = function() {
+		return this.getJson("/associates.json");
+	};
+	
+	this.deleteAssociate = function(associateId) {
+		return this.post("/delete-associate.json", associateId);
+	};
+
+});

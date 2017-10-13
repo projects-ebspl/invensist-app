@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.invensist.enums.StoreType;
+import com.invensist.models.AssociateModel;
 import com.invensist.models.MessageModel;
 import com.invensist.models.StoreModel;
 import com.invensist.models.UserModel;
@@ -34,7 +35,7 @@ public class DataController {
 	}
 	
 	@PostMapping(value = "/delete-user.json", produces = "application/json")
-	public MessageModel deleteUser(@RequestParam Object userId) {
+	public MessageModel deleteUser(@RequestParam Integer userId) {
 		// TODO Delete
 		return new MessageModel().withMessage("Done...");
 	}
@@ -83,8 +84,29 @@ public class DataController {
 	}
 	
 	@PostMapping(value = "/delete-store.json", produces = "application/json")
-	public MessageModel deleteStore(@RequestParam Object storeId) {
+	public MessageModel deleteStore(@RequestParam Integer storeId) {
 		// TODO Delete
 		return new MessageModel().withMessage("Store is deleted successfully");
+	}
+
+	@GetMapping(value = "/associates.json", produces = "application/json")
+	public @ResponseBody List<AssociateModel> getAssociates() {
+		ArrayList<AssociateModel> associates = new ArrayList<>();
+		for (int i = 1; i <= 20; i++) {
+			AssociateModel model = new AssociateModel();
+			model.setId(i);
+			model.setName("NAME" + i);
+			model.setEmail("email" + i);
+			model.setPhone("phone" + i);
+			model.setAddress("address" + i);
+			associates.add(model);
+		}
+		return associates;
+	}
+	
+	@PostMapping(value = "/delete-associate.json", produces = "application/json")
+	public MessageModel deleteAssociate(@RequestParam Integer associateId) {
+		// TODO Delete
+		return new MessageModel().withMessage("Associate is deleted successfully");
 	}
 }

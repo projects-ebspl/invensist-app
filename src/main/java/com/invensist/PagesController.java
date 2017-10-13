@@ -38,6 +38,11 @@ public class PagesController {
 		return "pages/users";
 	}
 
+	@RequestMapping("/associates")
+	public String associates() {
+		return "pages/associates";
+	}
+
 	@RequestMapping("/stores")
 	public ModelAndView stores() {
 		ModelAndView mv = new ModelAndView("pages/stores");
