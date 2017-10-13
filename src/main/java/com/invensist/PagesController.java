@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.invensist.enums.ItemType;
 import com.invensist.enums.StoreType;
 
 @Controller
@@ -50,6 +51,13 @@ public class PagesController {
 		return mv;
 	}
 	
+	@RequestMapping("/items")
+	public ModelAndView items() {
+		ModelAndView mv = new ModelAndView("pages/items");
+		mv.addObject("itemTypes", ItemType.values());
+		return mv;
+	}
+
 	@RequestMapping("/reset-password")
 	public ModelAndView resetPassword() {
 		return new ModelAndView("pages/reset-password");

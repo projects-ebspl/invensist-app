@@ -42,5 +42,15 @@ var AssociateService = Service.extend(function() {
 	this.deleteAssociate = function(associateId) {
 		return this.post("/delete-associate.json", associateId);
 	};
+});
 
+var ItemService = Service.extend(function() {
+	
+	this.getItems = function() {
+		return this.getJson("/items.json");
+	};
+	
+	this.deleteItem = function(itemId) {
+		return this.post("/delete-item.json", itemId);
+	};
 });

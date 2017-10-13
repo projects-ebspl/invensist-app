@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments :: header"></div>
+
+<body>
+	<div id="wrapper">
+		<div th:replace="fragments :: navigation"></div>
+		<div id="page-wrapper">
+			<!-- /.row -->
+			<div class="row">&nbsp;</div>
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Manage Items</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<table width="100%" class="table table-bordered table-hover"
+								id="items-table">
+								<thead>
+									<tr>
+										<th>Code</th>
+										<th>Description</th>
+										<th>Item Cost</th>
+										<th>Assembly Cost</th>
+										<th>Type</th>
+									</tr>
+								</thead>
+							</table>
+							<!-- /.table-responsive -->
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12 item-properties hidden">
+					<div class="panel panel-default">
+						<div class="panel-heading">Item Properties</div>
+						<div class="panel-body">
+							<ul class="nav nav-pills">
+								<li class="active"><a href="#1a" data-toggle="tab">Info</a>
+								</li>
+								<li><a href="#2a" data-toggle="tab">Inventory</a></li>
+								<li><a href="#3a" data-toggle="tab">BoM</a></li>
+							</ul>
+							<div class="tab-content clearfix">
+								<div class="tab-pane active" id="1a">
+									<div class="panel-body">
+										<h4>Info</h4>
+									</div>
+								</div>
+								<div class="tab-pane" id="2a">
+									<h4>Inventory</h4>
+								</div>
+								<div class="tab-pane" id="3a">
+									<h4>BoM</h4>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+
+	<!-- Modal HTML -->
+	<div id="itemDialog" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="itemDialogTitle"></h4>
+				</div>
+				<div class="modal-body">
+				<form class="form-horizontal">
+				    <div class="form-group">
+				        <label for="itemCode" class="control-label col-xs-4">Item Code</label>
+				        <div class="col-xs-5">
+				            <input type="text" class="form-control" id="itemCode" placeholder="Item Code"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="description" class="control-label col-xs-4">Description</label>
+				        <div class="col-xs-5">
+				            <input type="text" class="form-control" id="description" placeholder="Description"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="itemCost" class="control-label col-xs-4">Item Cost</label>
+				        <div class="col-xs-5">
+				            <input type="text" class="form-control" id="itemCost" placeholder="Item Cost"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="assemblyCost" class="control-label col-xs-4">Assembly Cost</label>
+				        <div class="col-xs-5">
+				            <input type="text" class="form-control" id="assemblyCost" placeholder="Assembly Cost"/>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="type" class="control-label col-xs-4">Type</label>
+				        <div class="col-xs-5">
+				            <select class="form-control" id="type">
+				            	<option th:each="type : ${itemTypes}" th:value="${type}" th:text="${type.value}"></option>
+				            </select>
+				        </div>
+				    </div>
+				</form>				
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments :: scripts"></div>
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+	<script th:src="@{/js/items.js}"></script>
+</body>
+</html>
