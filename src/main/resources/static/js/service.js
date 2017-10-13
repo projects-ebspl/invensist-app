@@ -20,3 +20,16 @@ var UserService = Service.extend(function() {
 	};
 
 });
+
+var StoreService = Service.extend(function() {
+	
+	this.getStores = function() {
+		return this.getJson("/stores.json");
+	};
+	
+	this.deleteStore = function(storeId) {
+		return this.post("/delete-store.json", storeId);
+	};
+
+});
+

@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
-	var service = new UserService();
+	var service = new StoreService();
 
-	var table = $('#users-table').DataTable({
+	var table = $('#stores-table').DataTable({
 		select: {
 			style: 'single'
 		},
@@ -14,49 +14,49 @@ $(document).ready(function() {
 			{
 				text: '<i class="fa fa-plus fa-fw"></i>',
 				action: function () {
-					$("#userDialogTitle").text("Add User");
+					$("#storeDialogTitle").text("Add Store");
 					$("#passwords").show();
 				},
-				name: 'addUser',
-				titleAttr: 'Add User'
+				name: 'addStore',
+				titleAttr: 'Add Store'
 			},
 			{
 				text: '<i class="fa fa-pencil fa-fw"></i>',
 				action: function () {
-					$("#userDialogTitle").text("Edit User");
+					$("#storeDialogTitle").text("Edit Store");
 					$("#passwords").hide();
 				},
-				name: 'editUser',
-				titleAttr: 'Edit User'
+				name: 'editStore',
+				titleAttr: 'Edit Store'
 			},
 			{
 				text: '<i class="fa fa-trash-o fa-fw"></i>',
 				action: function () {
 					var rows = table.rows({selected: true});
 					if(rows.count() == 0) {
-						alert("Please select a user to delete.");
+						alert("Please select a store to delete.");
 					} else {
-						service.deleteUser({
-							userId : (rows.data()[0][4])
+						service.deleteStore({
+							storeId : (rows.data()[0][2])
 						}).done(function(data) {
 							alert(data.message);
 						});
 					}
 				},
-				titleAttr: 'Delete User'
+				titleAttr: 'Delete Store'
 			}
 			]
 	});
 
-	table.button( 'addUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
-	table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
+	table.button( 'addStore:name' ).nodes().attr('href','#storeDialog').attr('data-toggle', 'modal')
+	table.button( 'editStore:name' ).nodes().attr('href','#storeDialog').attr('data-toggle', 'modal')
 	
 	
 	service
-	.getUsers()
+	.getStores()
 	.done(function(data){
-		for (user in data) {
-			table.row.add([data[user].firstName, data[user].lastName, data[user].email, data[user].phone, data[user].id]).draw(false);
+		for (store in data) {
+			table.row.add([data[store].name, data[store].type, data[store].id]).draw(false);
 		}
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
@@ -66,7 +66,7 @@ $(document).ready(function() {
 
 	table.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
-			$(".user-properties").removeClass("hidden");
+			$(".store-properties").removeClass("hidden");
 		}
 		table.columns.adjust().draw();
 	} );

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.invensist.enums.StoreType;
 import com.invensist.models.MessageModel;
+import com.invensist.models.StoreModel;
 import com.invensist.models.UserModel;
 
 @RestController
@@ -37,6 +39,52 @@ public class DataController {
 		return new MessageModel().withMessage("Done...");
 	}
 	
+	@GetMapping(value = "/stores.json", produces = "application/json")
+	public @ResponseBody List<StoreModel> getStores() {
+		ArrayList<StoreModel> stores = new ArrayList<>();
+		
+		StoreModel s = new StoreModel();
+		s.setId(1);
+		s.setName("REG-1");
+		s.setStoreType(StoreType.regular);
+		stores.add(s);
+		
+		s = new StoreModel();
+		s.setId(2);
+		s.setName("REJ-1");
+		s.setStoreType(StoreType.rejection);
+		stores.add(s);
+
+		s = new StoreModel();
+		s.setId(3);
+		s.setName("ASM-1");
+		s.setStoreType(StoreType.assembly);
+		stores.add(s);
+		
+		s = new StoreModel();
+		s.setId(4);
+		s.setName("BRK-1");
+		s.setStoreType(StoreType.breakup);
+		stores.add(s);
+
+		s = new StoreModel();
+		s.setId(5);
+		s.setName("SHT-1");
+		s.setStoreType(StoreType.shortage);
+		stores.add(s);
+
+		s = new StoreModel();
+		s.setId(6);
+		s.setName("WST-1");
+		s.setStoreType(StoreType.wastage);
+		stores.add(s);
+
+		return stores;
+	}
 	
-	
+	@PostMapping(value = "/delete-store.json", produces = "application/json")
+	public MessageModel deleteStore(@RequestParam Object storeId) {
+		// TODO Delete
+		return new MessageModel().withMessage("Store is deleted successfully");
+	}
 }
