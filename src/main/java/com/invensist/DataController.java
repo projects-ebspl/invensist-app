@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +30,11 @@ public class DataController {
 	@GetMapping(value = "/users.json", produces = "application/json")
 	public @ResponseBody List<UserModel> getUsers() {
 		return configService.getUsers();
+	}
+	
+	@PostMapping("/save-user.json")
+	public MessageModel saveUser(@ModelAttribute("user")UserModel user, BindingResult bindingResult) {
+		return new MessageModel().withMessage("In Progress !!");
 	}
 	
 	@PostMapping(value = "/delete-user.json", produces = "application/json")

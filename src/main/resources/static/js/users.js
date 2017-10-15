@@ -1,6 +1,27 @@
 $(document).ready(function() {
 
 	var service = new UserService();
+	
+	var usersForm = new Form($("#usersForm"));
+
+	usersForm.onSubmit(function(data) {
+		service.saveUser(data).done(function(result){
+			alert(result.message);
+		});
+	});
+	
+	usersForm.customValidationHandler(function(data){
+		var valid = true;
+		if(data.password != data.confirmPassword) {
+			$("#usersForm").find(".password").addClass("has-error");
+			$("#usersForm").find(".password-confirm-password-shoud-be-same").removeClass("hidden");
+			valid = false;
+		} else {
+			$("#usersForm").find(".password").removeClass("has-error");
+			$("#usersForm").find(".password-confirm-password-shoud-be-same").addClass("hidden");
+		}
+		return valid;
+	});
 
 	var table = $('#users-table').DataTable({
 		select: {
@@ -14,15 +35,17 @@ $(document).ready(function() {
 			{
 				text: '<i class="fa fa-plus fa-fw"></i>',
 				action: function () {
+					usersForm.refresh();
 					$("#userDialogTitle").text("Add User");
 					$("#passwords").show();
 				},
 				name: 'addUser',
-				titleAttr: 'Add User'
+				titleAttr: 'Add User',
 			},
 			{
 				text: '<i class="fa fa-pencil fa-fw"></i>',
 				action: function () {
+					usersForm.refresh();
 					$("#userDialogTitle").text("Edit User");
 					$("#passwords").hide();
 				},
@@ -50,8 +73,8 @@ $(document).ready(function() {
 
 	table.button( 'addUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
 	table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
-	
-	
+
+
 	service
 	.getUsers()
 	.done(function(data){
@@ -69,5 +92,5 @@ $(document).ready(function() {
 			$(".user-properties").removeClass("hidden");
 		}
 		table.columns.adjust().draw();
-	} );
+	});
 });

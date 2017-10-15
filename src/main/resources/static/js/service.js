@@ -18,6 +18,10 @@ var UserService = Service.extend(function() {
 	this.deleteUser = function(userId) {
 		return this.post("/delete-user.json", userId);
 	};
+	
+	this.saveUser = function(user) {
+		return this.post("/save-user.json", user);
+	};
 
 });
 
