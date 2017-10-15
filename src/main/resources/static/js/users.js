@@ -1,12 +1,64 @@
 $(document).ready(function() {
+	
+	$.refreshUserTable = function() {
+		service
+		.getUsers()
+		.done(function(data){
+			for (user in data) {
+				table.row.add([data[user].firstName, data[user].lastName, data[user].email, data[user].phone, data[user].id]).draw(false);
+			}
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.errorThrown);
+		});
+	};
+	
+	$.getSelectedUsers = function() {
+		table.rows({selected: true});
+	};
 
+	$.addUser = function() {
+		usersForm.refresh();
+		$("#userDialogTitle").text("Add User");
+		$("#passwords").show();
+	};
+	
+	$.editUser = function() {
+		var rows = table.rows({selected: true});
+		table.button( 'editUser:name' ).nodes().attr('href','#').attr('data-toggle', 'modal')
+		if(rows.count() == 0) {
+			alert("Please select a user to edit.");
+		} else {
+			usersForm.refresh();
+			table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
+			$("#userDialogTitle").text("Edit User");
+			$("#passwords").hide();
+		}
+	};
+	
+	$.deleteUser = function() {
+		var rows = table.rows({selected: true});
+		if(rows.count() == 0) {
+			alert("Please select a user to delete.");
+		} else {
+			service.deleteUser({
+				userId : (rows.data()[0][4])
+			}).done(function(data) {
+				alert(data.message);
+			});
+		}
+	};
+	
 	var service = new UserService();
 	
+	/*
+	 * User Form
+	 */
 	var usersForm = new Form($("#usersForm"));
 
 	usersForm.onSubmit(function(data) {
 		service.saveUser(data).done(function(result){
-			alert(result.message);
+			$.refreshUserTable();
 		});
 	});
 	
@@ -32,6 +84,8 @@ $(document).ready(function() {
 		
 		return valid && roleValid;
 	});
+	
+	
 
 	var table = $('#users-table').DataTable({
 		select: {
@@ -44,63 +98,33 @@ $(document).ready(function() {
 		buttons: [
 			{
 				text: '<i class="fa fa-plus fa-fw"></i>',
-				action: function () {
-					usersForm.refresh();
-					$("#userDialogTitle").text("Add User");
-					$("#passwords").show();
-				},
+				action: $.addUser,
 				name: 'addUser',
 				titleAttr: 'Add User',
 			},
 			{
 				text: '<i class="fa fa-pencil fa-fw"></i>',
-				action: function () {
-					usersForm.refresh();
-					$("#userDialogTitle").text("Edit User");
-					$("#passwords").hide();
-				},
+				action: $.editUser,
 				name: 'editUser',
 				titleAttr: 'Edit User'
 			},
 			{
 				text: '<i class="fa fa-trash-o fa-fw"></i>',
-				action: function () {
-					var rows = table.rows({selected: true});
-					if(rows.count() == 0) {
-						alert("Please select a user to delete.");
-					} else {
-						service.deleteUser({
-							userId : (rows.data()[0][4])
-						}).done(function(data) {
-							alert(data.message);
-						});
-					}
-				},
+				action: $.deleteUser,
 				titleAttr: 'Delete User'
 			}
 			]
 	});
 
 	table.button( 'addUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
-	table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
-
-
-	service
-	.getUsers()
-	.done(function(data){
-		for (user in data) {
-			table.row.add([data[user].firstName, data[user].lastName, data[user].email, data[user].phone, data[user].id]).draw(false);
-		}
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		alert(jqXHR.status);
-	});
-
-
 	table.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
 			$(".user-properties").removeClass("hidden");
 		}
 		table.columns.adjust().draw();
 	});
+	
+	
+	$.refreshUserTable();
+	
 });
