@@ -1,11 +1,19 @@
 $(document).ready(function() {
 	
+	
 	$.refreshUserTable = function() {
 		service
 		.getUsers()
 		.done(function(data){
-			for (user in data) {
-				table.row.add([data[user].firstName, data[user].lastName, data[user].email, data[user].phone, data[user].id]).draw(false);
+			for (i = 0; i < data.length; i++) { 
+				var user = data[i];
+				table.row.add([user.firstName, 
+							   user.lastName, 
+							   user.email, 
+							   user.phone, 
+							   user.id,
+							   user
+							   ]).draw(false);
 			}
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
@@ -19,6 +27,7 @@ $(document).ready(function() {
 
 	$.addUser = function() {
 		usersForm.refresh();
+		table.button( 'addUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
 		$("#userDialogTitle").text("Add User");
 		$("#passwords").show();
 	};
@@ -31,6 +40,9 @@ $(document).ready(function() {
 		} else {
 			usersForm.refresh();
 			table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
+			var rows = table.rows({selected: true});
+			var user = rows.data()[0][5];
+			usersForm.setData(user);
 			$("#userDialogTitle").text("Edit User");
 			$("#passwords").hide();
 		}
@@ -116,7 +128,6 @@ $(document).ready(function() {
 			]
 	});
 
-	table.button( 'addUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
 	table.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
 			$(".user-properties").removeClass("hidden");
