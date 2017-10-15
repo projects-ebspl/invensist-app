@@ -20,7 +20,17 @@ $(document).ready(function() {
 			$("#usersForm").find(".password").removeClass("has-error");
 			$("#usersForm").find(".password-confirm-password-shoud-be-same").addClass("hidden");
 		}
-		return valid;
+		
+		var roleValid = data.user || data.planner || data.admin;
+		if(roleValid) {
+			$("#usersForm").find(".at-least-one-role").addClass("hidden");
+			$("#usersForm").find(".role").removeClass("has-error");
+		} else {
+			$("#usersForm").find(".at-least-one-role").removeClass("hidden");
+			$("#usersForm").find(".role").addClass("has-error");
+		}
+		
+		return valid && roleValid;
 	});
 
 	var table = $('#users-table').DataTable({
