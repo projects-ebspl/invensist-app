@@ -1,7 +1,21 @@
-h1{
-	color:#0000FF;
+h1 {
+	color: #0000FF;
 }
 
-h2{
-	color:#FF0000;
+h2 {
+	color: #FF0000;
+}
+
+.panel-no-shadow {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.panel-no-margin {
+	margin: 0px;
+}
+
+.no-left-padding {
+	padding-left: 0px;
 }

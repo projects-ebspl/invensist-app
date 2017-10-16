@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	
-	
 	$.refreshUserTable = function() {
 		service
 		.getUsers()
@@ -14,6 +12,7 @@ $(document).ready(function() {
 							   user.id,
 							   user
 							   ]).draw(false);
+				console.log(JSON.stringify(user));
 				table.row(':eq(0)', { page: 'current' }).select();
 			}
 		})
@@ -129,7 +128,7 @@ $(document).ready(function() {
 				action: $.deleteUser,
 				titleAttr: 'Delete User'
 			}
-			]
+		]
 	});
 
 	table.on( 'select', function ( e, dt, type, indexes ) {
@@ -137,9 +136,26 @@ $(document).ready(function() {
 			$(".user-properties").removeClass("hidden");
 		}
 		table.columns.adjust().draw();
+		
+		var rows = table.rows({selected: true});
+		var user = rows.data()[0][5];
+		props.setData(user);
 	});
 	
 	
 	$.refreshUserTable();
 	
+	
+	$(".fa-chevron-up").click(function() {
+		$("#users-table-row").hide();
+		$(".fa-chevron-down").removeClass("hidden");
+		$(this).addClass("hidden");
+	});
+	$(".fa-chevron-down").click(function() {
+		$("#users-table-row").show();
+		$(".fa-chevron-down").addClass("hidden");
+		$(".fa-chevron-up").removeClass("hidden");
+	});
+
+	var props = new Form($("#propsForm"));
 });
