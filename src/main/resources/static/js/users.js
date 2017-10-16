@@ -14,6 +14,7 @@ $(document).ready(function() {
 							   user.id,
 							   user
 							   ]).draw(false);
+				table.row(':eq(0)', { page: 'current' }).select();
 			}
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
