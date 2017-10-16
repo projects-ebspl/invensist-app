@@ -29,6 +29,7 @@ $(document).ready(function() {
 		usersForm.refresh();
 		table.button( 'addUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
 		$("#userDialogTitle").text("Add User");
+		usersForm.newUser = true;
 		$("#passwords").show();
 	};
 	
@@ -42,6 +43,7 @@ $(document).ready(function() {
 			table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
 			var rows = table.rows({selected: true});
 			var user = rows.data()[0][5];
+			usersForm.newUser = false;
 			usersForm.setData(user);
 			$("#userDialogTitle").text("Edit User");
 			$("#passwords").hide();
@@ -76,16 +78,17 @@ $(document).ready(function() {
 	
 	usersForm.customValidationHandler(function(data){
 		var valid = true;
-		if(data.password != data.confirmPassword) {
-			$("#usersForm").find(".password").addClass("has-error");
-			$("#usersForm").find(".password-confirm-password-shoud-be-same").removeClass("hidden");
-			valid = false;
-		} else {
-			$("#usersForm").find(".password").removeClass("has-error");
-			$("#usersForm").find(".password-confirm-password-shoud-be-same").addClass("hidden");
+		if(usersForm.newUser) {
+			if(!data.password || !data.confirmPassword || data.password != data.confirmPassword) {
+				$("#usersForm").find(".password").addClass("has-error");
+				$("#usersForm").find(".password-confirm-password-shoud-be-same").removeClass("hidden");
+				valid = false;
+			} else {
+				$("#usersForm").find(".password").removeClass("has-error");
+				$("#usersForm").find(".password-confirm-password-shoud-be-same").addClass("hidden");
+			}
 		}
-		
-		var roleValid = data.user || data.planner || data.admin;
+		var roleValid = $.isDefined(data.user) || $.isDefined(data.planner) || $.isDefined(data.admin);
 		if(roleValid) {
 			$("#usersForm").find(".at-least-one-role").addClass("hidden");
 			$("#usersForm").find(".role").removeClass("has-error");
