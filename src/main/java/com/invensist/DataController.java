@@ -13,19 +13,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.invensist.enums.ItemType;
-import com.invensist.enums.StoreType;
 import com.invensist.models.AssociateModel;
 import com.invensist.models.ItemModel;
 import com.invensist.models.MessageModel;
 import com.invensist.models.StoreModel;
 import com.invensist.models.UserModel;
 import com.invensist.service.ConfigService;
+import com.invensist.service.InventoryService;
 
 @RestController
 public class DataController {
 
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private InventoryService inventoryService;
 	
 	@GetMapping(value = "/users.json", produces = "application/json")
 	public @ResponseBody List<UserModel> getUsers() {
@@ -45,45 +48,7 @@ public class DataController {
 	
 	@GetMapping(value = "/stores.json", produces = "application/json")
 	public @ResponseBody List<StoreModel> getStores() {
-		ArrayList<StoreModel> stores = new ArrayList<>();
-		
-		StoreModel s = new StoreModel();
-		s.setId(1);
-		s.setName("REG-1");
-		s.setStoreType(StoreType.regular);
-		stores.add(s);
-		
-		s = new StoreModel();
-		s.setId(2);
-		s.setName("REJ-1");
-		s.setStoreType(StoreType.rejection);
-		stores.add(s);
-
-		s = new StoreModel();
-		s.setId(3);
-		s.setName("ASM-1");
-		s.setStoreType(StoreType.assembly);
-		stores.add(s);
-		
-		s = new StoreModel();
-		s.setId(4);
-		s.setName("BRK-1");
-		s.setStoreType(StoreType.breakup);
-		stores.add(s);
-
-		s = new StoreModel();
-		s.setId(5);
-		s.setName("SHT-1");
-		s.setStoreType(StoreType.shortage);
-		stores.add(s);
-
-		s = new StoreModel();
-		s.setId(6);
-		s.setName("WST-1");
-		s.setStoreType(StoreType.wastage);
-		stores.add(s);
-
-		return stores;
+		return inventoryService.getStores();
 	}
 	
 	@PostMapping(value = "/delete-store.json", produces = "application/json")
