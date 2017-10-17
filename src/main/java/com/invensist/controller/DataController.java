@@ -42,9 +42,9 @@ public class DataController {
 	}
 	
 	@PostMapping(value = "/delete-user.json", produces = "application/json")
-	public MessageModel deleteUser(@RequestParam Integer userId) {
-		// TODO Delete
-		return new MessageModel().withMessage("Done...");
+	public List<UserModel> deleteUser(@RequestParam Integer userId) {
+		configService.deleteUser(userId);
+		return getUsers();
 	}
 	
 	@GetMapping(value = "/stores.json", produces = "application/json")

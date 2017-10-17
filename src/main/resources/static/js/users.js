@@ -97,7 +97,7 @@ $(document).ready(function() {
 	var usersForm = new Form($("#usersForm"));
 
 	usersForm.onSubmit(function(data) {
-		alert(JSON.stringify(data));
+		
 		service.saveUser(data).done(function(result){
 			$.refreshUserTable();
 		});
