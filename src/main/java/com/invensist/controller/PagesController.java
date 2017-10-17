@@ -1,4 +1,4 @@
-package com.invensist;
+package com.invensist.controller;
 
 import java.util.Map;
 

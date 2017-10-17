@@ -1,4 +1,4 @@
-package com.invensist;
+package com.invensist.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +51,11 @@ public class DataController {
 		return inventoryService.getStores();
 	}
 	
+	@GetMapping(value = "/check-valid-email.json", produces = "application/json")
+	public void checkValidEmail(@RequestParam("email") String email) {
+		System.out.println("YES");
+	}
+
 	@PostMapping(value = "/delete-store.json", produces = "application/json")
 	public MessageModel deleteStore(@RequestParam Integer storeId) {
 		// TODO Delete

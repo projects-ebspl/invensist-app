@@ -19,3 +19,10 @@ h2 {
 .no-left-padding {
 	padding-left: 0px;
 }
+
+.dataTables_scroll
+{
+    overflow:auto;
+    clear: both;
+    position: relative;
+}
