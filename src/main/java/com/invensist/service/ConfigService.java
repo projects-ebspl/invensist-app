@@ -54,6 +54,13 @@ public class ConfigService {
 		configDao.saveUser(user);
 		return true;
 	}
+	/**
+	 * delete user for given id
+	 * @param id
+	 */
+	public void deleteUser(int id){
+		configDao.deleteUserById(id);
+	}
 	private UserModel toUserModel(User user){
 
 		if(user == null){
