@@ -16,15 +16,7 @@
 						<div class="panel-heading">Manage Stores</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
-							<table width="100%" class="table table-bordered table-hover"
-								id="stores-table">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th>Type</th>
-									</tr>
-								</thead>
-							</table>
+							<div th:replace="fragments :: stores-table"></div>
 							<!-- /.table-responsive -->
 						</div>
 						<!-- /.panel-body -->

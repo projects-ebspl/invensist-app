@@ -15,6 +15,10 @@ var UserService = Service.extend(function() {
 		return this.getJson("/users.json");
 	};
 	
+	this.getStoresForUser = function(userId) {
+		return this.getJson("/stores.json");
+	};
+
 	this.deleteUser = function(userId) {
 		return this.post("/delete-user.json", userId);
 	};

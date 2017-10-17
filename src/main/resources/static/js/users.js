@@ -12,7 +12,6 @@ $(document).ready(function() {
 							   user.id,
 							   user
 							   ]).draw(false);
-				console.log(JSON.stringify(user));
 				table.row(':eq(0)', { page: 'current' }).select();
 			}
 		})
@@ -21,6 +20,26 @@ $(document).ready(function() {
 		});
 	};
 	
+	$.refreshStoresTable = function(userId) {
+		service
+		.getStoresForUser(userId)
+		.done(function(data){
+			for (i = 0; i < data.length; i++) { 
+				var store = data[i];
+				storesTable.row.add([store.name, 
+								store.type, 
+								store.email, 
+								store.id,
+								store
+							   ]).draw(false);
+				storesTable.row(':eq(0)', { page: 'current' }).select();
+			}
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.errorThrown);
+		});
+	};
+
 	$.getSelectedUsers = function() {
 		table.rows({selected: true});
 	};
@@ -71,6 +90,7 @@ $(document).ready(function() {
 	var usersForm = new Form($("#usersForm"));
 
 	usersForm.onSubmit(function(data) {
+		alert(JSON.stringify(data));
 		service.saveUser(data).done(function(result){
 			$.refreshUserTable();
 		});
@@ -140,6 +160,7 @@ $(document).ready(function() {
 		var rows = table.rows({selected: true});
 		var user = rows.data()[0][5];
 		props.setData(user);
+		$.refreshStoresTable(user.id);
 	});
 	
 	
@@ -158,4 +179,39 @@ $(document).ready(function() {
 	});
 
 	var props = new Form($("#propsForm"));
+	
+	var storesTable = $('#stores-table').DataTable({
+		select: {
+			style: 'single'
+		},
+		dom: 'Bfrtip',
+		scrollY: '30vh',
+		scrollCollapse: false,
+		buttons: [
+			{
+				text: '<i class="fa fa-plus fa-fw"></i>',
+				action: $.addUser,
+				name: 'addUser',
+				titleAttr: 'Add User',
+			},
+			{
+				text: '<i class="fa fa-pencil fa-fw"></i>',
+				action: $.editUser,
+				name: 'editUser',
+				titleAttr: 'Edit User'
+			},
+			{
+				text: '<i class="fa fa-trash-o fa-fw"></i>',
+				action: $.deleteUser,
+				titleAttr: 'Delete User'
+			}
+		]
+	});
+	
+	storesTable.columns.adjust().draw(false);
+	
+	
+	storesTable.on( 'select', function ( e, dt, type, indexes ) {
+		storesTable.columns.adjust().draw(false);
+	});
 });
