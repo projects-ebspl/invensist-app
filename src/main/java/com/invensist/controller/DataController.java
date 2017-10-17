@@ -51,6 +51,11 @@ public class DataController {
 		return inventoryService.getStores();
 	}
 	
+	@GetMapping(value = "/stores-for-user.json", produces = "application/json")
+	public @ResponseBody List<StoreModel> getStoresForUser(@RequestParam("userId") Integer userId) {
+		return inventoryService.getStoresForUser(userId);
+	}
+	
 	@GetMapping(value = "/check-valid-email.json", produces = "application/json")
 	public void checkValidEmail(@RequestParam("email") String email) {
 		System.out.println("YES");

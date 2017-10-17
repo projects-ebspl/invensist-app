@@ -21,10 +21,7 @@ $(document).ready(function() {
 	};
 	
 	$.refreshStoresTable = function(userId) {
-		console.log("Called...");
-
 		storesTable.clear().draw();
-		console.log("Called..." + storesTable.rows().length);
 		service
 		.getStoresForUser(userId)
 		.done(function(data){
