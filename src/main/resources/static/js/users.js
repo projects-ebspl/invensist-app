@@ -86,6 +86,12 @@ $(document).ready(function() {
 		}
 	};
 	
+	$.assignStores = function() {
+		storesTable.button( 'assignStores:name' ).nodes().attr('href','#userStoreDialog').attr('data-toggle', 'modal')
+		$("#userStoreDialogTitle").text("Assign Stores");
+	};
+
+
 	var service = new UserService();
 	
 	/*
@@ -199,6 +205,7 @@ $(document).ready(function() {
 			{
 				text: '<i class="fa fa-plus fa-fw"></i>',
 				name: 'assignStores',
+				action: $.assignStores,
 				titleAttr: 'Assign Stores to user',
 			},
 			{
