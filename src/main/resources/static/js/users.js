@@ -12,8 +12,8 @@ $(document).ready(function() {
 							   user.id,
 							   user
 							   ]).draw(false);
-				table.row(':eq(0)', { page: 'current' }).select();
 			}
+			table.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			alert(jqXHR.errorThrown);
@@ -21,6 +21,10 @@ $(document).ready(function() {
 	};
 	
 	$.refreshStoresTable = function(userId) {
+		console.log("Called...");
+
+		storesTable.clear().draw();
+		console.log("Called..." + storesTable.rows().length);
 		service
 		.getStoresForUser(userId)
 		.done(function(data){
@@ -32,8 +36,8 @@ $(document).ready(function() {
 								store.id,
 								store
 							   ]).draw(false);
-				storesTable.row(':eq(0)', { page: 'current' }).select();
 			}
+			storesTable.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			alert(jqXHR.errorThrown);
@@ -160,7 +164,9 @@ $(document).ready(function() {
 		var rows = table.rows({selected: true});
 		var user = rows.data()[0][5];
 		props.setData(user);
+		console.log("Calling...");
 		$.refreshStoresTable(user.id);
+
 	});
 	
 	
