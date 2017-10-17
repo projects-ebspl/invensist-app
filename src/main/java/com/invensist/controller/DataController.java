@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.invensist.enums.ItemType;
 import com.invensist.models.AssociateModel;
 import com.invensist.models.ItemModel;
 import com.invensist.models.MessageModel;
@@ -91,56 +90,7 @@ public class DataController {
 
 	@GetMapping(value = "/items.json", produces = "application/json")
 	public @ResponseBody List<ItemModel> getItems() {
-		ArrayList<ItemModel> items = new ArrayList<>();
-		
-		ItemModel item = new ItemModel();
-		item.setId(1);
-		item.setItemcost(10d);
-		item.setCode("S0001");
-		item.setDescription("D0001");
-		item.setItemType(ItemType.single);
-		items.add(item);
-		
-		item = new ItemModel();
-		item.setId(2);
-		item.setItemcost(32d);
-		item.setCode("S0002");
-		item.setDescription("D0002");
-		item.setItemType(ItemType.single);
-		items.add(item);
-		
-		item = new ItemModel();
-		item.setId(3);
-		item.setItemcost(43d);
-		item.setCode("S0003");
-		item.setDescription("D0003");
-		item.setItemType(ItemType.single);
-		items.add(item);
-		
-		item = new ItemModel();
-		item.setId(4);
-		item.setAssemblycost(3d);
-		item.setCode("C0001");
-		item.setDescription("D0004");
-		item.setItemType(ItemType.combo);
-		items.add(item);
-		
-		item = new ItemModel();
-		item.setId(5);
-		item.setAssemblycost(7d);
-		item.setCode("C0002");
-		item.setDescription("D0005");
-		item.setItemType(ItemType.combo);
-		items.add(item);
-		
-		item = new ItemModel();
-		item.setId(6);
-		item.setAssemblycost(11d);
-		item.setCode("C0003");
-		item.setDescription("D0006");
-		item.setItemType(ItemType.combo);
-		items.add(item);
-		return items;
+		 return inventoryService.getItems();
 	}
 
 	@PostMapping(value = "/delete-item.json", produces = "application/json")
