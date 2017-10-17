@@ -184,8 +184,10 @@ $(document).ready(function() {
 		select: {
 			style: 'single'
 		},
+		width: "100%",
+		height: "inherit",
+		scrollable: 'y',		
 		dom: 'Bfrtip',
-		scrollY: '30vh',
 		scrollCollapse: false,
 		buttons: [
 			{
@@ -205,7 +207,7 @@ $(document).ready(function() {
 				action: $.deleteUser,
 				titleAttr: 'Delete User'
 			}
-		]
+			]
 	});
 	
 	storesTable.columns.adjust().draw(false);
