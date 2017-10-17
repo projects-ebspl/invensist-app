@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
+import com.invensist.dao.mappers.ItemRowMapper;
 import com.invensist.dao.mappers.StoreRowMapper;
+import com.invensist.entities.Item;
 import com.invensist.entities.Store;
 import com.invensist.enums.StoreType;
 
@@ -65,10 +67,10 @@ public class InventoryDao extends BaseDao {
 		getJdbcTemplate().update(sql, new Object[] {userId, storeId});
 	}
 	
-//	public List<Item> getAllItems() {
-//		String sql = "select id, code, description, itemcost, assemblycost, type from Item";
-//		return getJdbcTemplate().query(sql, new ItemRowMapper());				
-//	}
+	public List<Item> getAllItems() {
+		String sql = "select id, code, description, itemcost, assemblycost, type from Item";
+		return getJdbcTemplate().query(sql, new ItemRowMapper());				
+	}
 //	
 //	public Item getItemByCode(String code) {
 //		String sql = "select id, code, description, itemcost, assemblycost, type from Item where code = ?";
