@@ -36,8 +36,9 @@ public class DataController {
 	}
 	
 	@PostMapping("/save-user.json")
-	public MessageModel saveUser(@ModelAttribute("user")UserModel user, BindingResult bindingResult) {
-		return new MessageModel().withMessage("In Progress !!");
+	public List<UserModel> saveUser(@ModelAttribute("user")UserModel user, BindingResult bindingResult) {
+		configService.saveUser(user);
+		return getUsers();
 	}
 	
 	@PostMapping(value = "/delete-user.json", produces = "application/json")
