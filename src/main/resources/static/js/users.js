@@ -198,20 +198,12 @@ $(document).ready(function() {
 		buttons: [
 			{
 				text: '<i class="fa fa-plus fa-fw"></i>',
-				action: $.addUser,
-				name: 'addUser',
-				titleAttr: 'Add User',
-			},
-			{
-				text: '<i class="fa fa-pencil fa-fw"></i>',
-				action: $.editUser,
-				name: 'editUser',
-				titleAttr: 'Edit User'
+				name: 'assignStores',
+				titleAttr: 'Assign Stores to user',
 			},
 			{
 				text: '<i class="fa fa-trash-o fa-fw"></i>',
-				action: $.deleteUser,
-				titleAttr: 'Delete User'
+				titleAttr: 'Remove store from user'
 			}
 			]
 	});
