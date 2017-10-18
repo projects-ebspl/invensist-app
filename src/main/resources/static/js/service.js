@@ -34,6 +34,13 @@ var UserService = Service.extend(function() {
 			userId : userId
 		});
 	};
+	
+	this.saveStoreAssignments = function(userId, storeIds) {
+		return this.post("/save-store-assignments.json", {
+			userId: userId,
+			storeIds: storeIds
+		});
+	};
 });
 
 var StoreService = Service.extend(function() {

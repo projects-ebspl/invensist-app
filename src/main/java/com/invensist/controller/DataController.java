@@ -62,6 +62,13 @@ public class DataController {
 		return inventoryService.getStoreSelections(userId);
 	}
 	
+	@PostMapping(value = "/save-store-assignments.json", produces = "application/json")
+	public MessageModel saveStoreAssignments(@RequestParam("userId") Integer userId, 
+				@RequestParam("storeIds") String storeIds) {
+		return new MessageModel().withMessage("Under Construction");
+		
+	}
+	
 	@GetMapping(value = "/check-valid-email.json", produces = "application/json")
 	public void checkValidEmail(@RequestParam("email") String email) {
 		System.out.println("YES");

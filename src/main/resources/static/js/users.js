@@ -92,6 +92,18 @@ $(document).ready(function() {
 			selector.setData(data);
 		});
 	};
+	
+	$.saveStoreAssignments = function() {
+		var stores = selector.selected();
+		var storeIds = [];
+		for (var i = 0; i < stores.length; i++) {
+			storeIds.push(stores[i].id);
+		}
+		service.saveStoreAssignments($.selectedUser().id, storeIds.join(",")).done(function(data){
+			$("#userStoreDialog").modal('hide');
+			$.refreshStoresTable($.selectedUser().id);
+		});
+	};
 
 
 	var service = new UserService();
@@ -225,5 +237,5 @@ $(document).ready(function() {
 
 	var selector = new DualSelector($(".dual-selector"));
 	
-	
+	$("#saveStoreAssignments").click($.saveStoreAssignments);
 });
