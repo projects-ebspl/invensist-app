@@ -41,11 +41,11 @@ public class InventoryDao extends BaseDao {
 		if(store.getId() == null) {
 			// Save as new 
 			String sql = "insert into Stores set name = ?, type = ?";
-			getJdbcTemplate().update(sql, new Object[] {store.getName(), store.getType().name()});
+			getJdbcTemplate().update(sql, new Object[] {store.getName(), store.getStoreType().name()});
 		} else {
 			// Save as update
 			String sql = "update Stores set name = ?, type = ? where id = ?";
-			getJdbcTemplate().update(sql, new Object[] {store.getName(), store.getType().name(), store.getId()});
+			getJdbcTemplate().update(sql, new Object[] {store.getName(), store.getStoreType().name(), store.getId()});
 		}
 	}
 	

@@ -4,16 +4,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.invensist.dao.InventoryDao;
 import com.invensist.entities.Item;
 import com.invensist.entities.Store;
 import com.invensist.models.ItemModel;
 import com.invensist.models.StoreModel;
+import com.invensist.models.StoreSelectionModel;
 
-@Service("inventoryService")
-public class InventoryService {
+@org.springframework.stereotype.Service("inventoryService")
+public class InventoryService extends Service {
 	
 	@Autowired
 	InventoryDao inventoryDao;
@@ -39,6 +39,22 @@ public class InventoryService {
 	public List<StoreModel> getStoresForUser(Integer userId) {		
 		return inventoryDao.getStoresForUser(userId).stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
 	}
+
+	public List<StoreSelectionModel> getStoreSelections(Integer userId) {
+		List<StoreModel> userStores = getStoresForUser(userId);
+		return getStores().stream().map(store -> {
+			StoreSelectionModel model = new StoreSelectionModel();
+			copyProperties(model, store);
+			model.setStoreType(store.getStoreType());
+			for (StoreModel userStore : userStores) {
+				if(userStore.getId() == store.getId()) {
+					model.setSelected(true);
+					break;
+				}
+			}
+			return model;
+		}).collect(Collectors.toList());
+	}
 	
 //	public List<UserStoreModel> getUserStoreAssignments(List<UserModel> users) {
 //		return users.stream().map(user -> {
@@ -56,7 +72,7 @@ public class InventoryService {
 		StoreModel storeModel = new StoreModel();
 		storeModel.setId(store.getId());
 		storeModel.setName(store.getName());
-		storeModel.setStoreType(store.getType());		
+		storeModel.setStoreType(store.getStoreType());		
 		return storeModel;
 	}
 	private ItemModel toItemModel(Item item){
@@ -96,7 +112,7 @@ public class InventoryService {
 		Store store = new Store();
 		store.setId(storeModel.getId());
 		store.setName(storeModel.getName());
-		store.setType(storeModel.getStoreType());
+		store.setStoreType(storeModel.getStoreType());
 		return store;
 	}	
 }
