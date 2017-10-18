@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$.refreshStoreTable = function() {
+		table.rows().remove();
 		service
 		.getStores()
 		.done(function(data){
@@ -10,12 +11,13 @@ $(document).ready(function() {
 			table.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
-			alert(jqXHR.status);
+			console.log("refreshStoreTable:" + jqXHR.status);
 		});
 	};
 
 	
 	$.refreshUsersTable = function(storeId) {
+		usersTable.rows().remove();
 		service
 		.getUsersForStore(storeId)
 		.done(function(data){
@@ -31,7 +33,7 @@ $(document).ready(function() {
 			usersTable.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
-			alert(jqXHR.errorThrown);
+			console.log("refreshUsersTable:" + jqXHR.errorThrown);
 		});
 	};
 	
@@ -74,7 +76,7 @@ $(document).ready(function() {
 						service.deleteStore({
 							storeId : (rows.data()[0][2])
 						}).done(function(data) {
-							alert(data.message);
+							alert("deleteStore.done()" + data.message);
 						});
 					}
 				},
@@ -90,7 +92,6 @@ $(document).ready(function() {
 		table.columns.adjust().draw();
 		var rows = table.rows({selected: true});
 		var store = rows.data()[0][2];
-		alert("store: " + store);
 		$.refreshUsersTable(store.id);
 	});
 
