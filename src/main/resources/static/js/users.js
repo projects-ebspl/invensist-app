@@ -87,7 +87,7 @@ $(document).ready(function() {
 	
 	$.assignStores = function() {
 		storesTable.button( 'assignStores:name' ).nodes().attr('href','#userStoreDialog').attr('data-toggle', 'modal')
-		$("#userStoreDialogTitle").text("Assign Stores");
+		$("#userStoreDialogTitle").text("Manage stores for '" + $.selectedUser().firstName + " " + $.selectedUser().lastName + "'");
 		service.getStoreSelections($.selectedUser().id).done(function(data){
 			selector.setData(data);
 		});
@@ -216,16 +216,12 @@ $(document).ready(function() {
 		scrollCollapse: false,
 		buttons: [
 			{
-				text: '<i class="fa fa-plus fa-fw"></i>',
+				text: 'Manage Store Assignments <i class="fa fa-tasks fa-fw"></i>',
 				name: 'assignStores',
 				action: $.assignStores,
 				titleAttr: 'Assign Stores to user',
-			},
-			{
-				text: '<i class="fa fa-trash-o fa-fw"></i>',
-				titleAttr: 'Remove store from user'
 			}
-			]
+		]
 	});
 	
 	storesTable.columns.adjust().draw(false);
