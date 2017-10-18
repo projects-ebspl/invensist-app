@@ -1,5 +1,6 @@
 package com.invensist.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,11 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.invensist.dao.ConfigDao;
+import com.invensist.entities.Item;
+import com.invensist.entities.Store;
 import com.invensist.entities.User;
+import com.invensist.models.ItemModel;
+import com.invensist.models.StoreModel;
+import com.invensist.models.StoreSelectionModel;
 import com.invensist.models.UserModel;
+import com.invensist.models.UserSelectionModel;
 
 @Service
-public class ConfigService {
+public class ConfigService extends com.invensist.service.Service {
 	
 	@Autowired
 	ConfigDao configDao;
@@ -61,6 +68,71 @@ public class ConfigService {
 	public void deleteUser(int id){
 		configDao.deleteUserById(id);
 	}
+
+	
+	public void deleteStores(String stringIds) {
+		String [] ids = stringIds.split(",");
+		for(String id:ids){			
+			this.deleteStore(Integer.parseInt(id));			
+		}		
+	}
+
+	private void deleteStore(int id) {
+		configDao.deleteStoreById(id);		
+	}
+	public StoreModel getStore(int id) {
+		return toStoreModel(configDao.getStoreById(id));
+	}
+	public List<StoreModel> getStores() {		
+		return configDao.getAllStores().stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
+	}
+	public List<ItemModel> getItems() {		
+		return configDao.getAllItems().stream().map(item -> toItemModel(item)).collect(Collectors.toList());
+	}
+	public List<StoreModel> getStoresForUser(Integer userId) {		
+		return configDao.getStoresForUser(userId).stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
+	}
+
+	public List<UserModel> getUsersForStore(Integer storeId) {
+		return configDao.getUsersForStore(storeId).stream().map(user -> toUserModel(user)).collect(Collectors.toList());
+	}
+
+	public List<StoreSelectionModel> getStoreSelections(Integer userId) {
+		List<StoreModel> userStores = getStoresForUser(userId);
+		return getStores().stream().map(store -> {
+			StoreSelectionModel model = new StoreSelectionModel();
+			copyProperties(model, store);
+			model.setStoreType(store.getStoreType());
+			for (StoreModel userStore : userStores) {
+				if(userStore.getId() == store.getId()) {
+					model.setSelected(true);
+					break;
+				}
+			}
+			return model;
+		}).collect(Collectors.toList());
+	}
+	
+	public List<UserSelectionModel> getUserSelections(Integer storeId) {
+		List<UserModel> storeUsers = getUsersForStore(storeId);
+		return getUsers().stream().map(user -> {
+			UserSelectionModel model = new UserSelectionModel();
+			copyProperties(model, user);
+			for (UserModel storeUser : storeUsers) {
+				if(storeUser.getId() == user.getId()) {
+					model.setSelected(true);
+					break;
+				}
+			}
+			return model;
+		}).collect(Collectors.toList());
+	}
+	
+	public void assignStores(Integer userId, String storeIdsCSV) {
+		configDao.assignStores(userId, Arrays.asList(storeIdsCSV.split(",")).stream().map(id -> Integer.parseInt(id)).collect(Collectors.toList()));
+	}
+	
+	
 	private UserModel toUserModel(User user){
 
 		if(user == null){
@@ -99,6 +171,31 @@ public class ConfigService {
 		user.setUser(userModel.isUser());
 
 		return user;
+	}
+	
+	private StoreModel toStoreModel(Store store){
+		if(store == null){
+			return null;
+		}
+		StoreModel storeModel = new StoreModel();
+		storeModel.setId(store.getId());
+		storeModel.setName(store.getName());
+		storeModel.setStoreType(store.getStoreType());		
+		return storeModel;
+	}
+	
+	private ItemModel toItemModel(Item item){
+		if(item == null){
+			return null;
+		}
+		ItemModel itemModel = new ItemModel();
+		itemModel.setId(item.getId());
+		itemModel.setCode(item.getCode());
+		itemModel.setDescription(item.getDescription());
+		itemModel.setItemcost(item.getItemcost());
+		itemModel.setAssemblycost(item.getAssemblycost());
+		itemModel.setItemType(item.getType());
+		return itemModel;
 	}
 
 	

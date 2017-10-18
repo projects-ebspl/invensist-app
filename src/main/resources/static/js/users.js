@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$.refreshUserTable = function() {
+		table.rows().remove();
 		service
 		.getUsers()
 		.done(function(data){
@@ -77,11 +78,13 @@ $(document).ready(function() {
 		if(rows.count() == 0) {
 			alert("Please select a user to delete.");
 		} else {
-			service.deleteUser({
-				userId : (rows.data()[0][4])
-			}).done(function(data) {
-				alert(data.message);
-			});
+			if(confirm("Are you sure you want to delete ?")) {
+				service.deleteUser({
+					userId : (rows.data()[0][4])
+				}).done(function(data) {
+					$.refreshUserTable();
+				});
+			}
 		}
 	};
 	

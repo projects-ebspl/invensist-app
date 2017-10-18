@@ -18,17 +18,14 @@ import com.invensist.models.MessageModel;
 import com.invensist.models.StoreModel;
 import com.invensist.models.StoreSelectionModel;
 import com.invensist.models.UserModel;
+import com.invensist.models.UserSelectionModel;
 import com.invensist.service.ConfigService;
-import com.invensist.service.InventoryService;
 
 @RestController
 public class DataController {
 
 	@Autowired
 	private ConfigService configService;
-	
-	@Autowired
-	private InventoryService inventoryService;
 	
 	@GetMapping(value = "/users.json", produces = "application/json")
 	public @ResponseBody List<UserModel> getUsers() {
@@ -49,28 +46,33 @@ public class DataController {
 	
 	@GetMapping(value = "/stores.json", produces = "application/json")
 	public @ResponseBody List<StoreModel> getStores() {
-		return inventoryService.getStores();
+		return configService.getStores();
 	}
 	
 	@GetMapping(value = "/stores-for-user.json", produces = "application/json")
 	public @ResponseBody List<StoreModel> getStoresForUser(@RequestParam("userId") Integer userId) {
-		return inventoryService.getStoresForUser(userId);
+		return configService.getStoresForUser(userId);
 	}
 	
 	@GetMapping(value = "/users-for-store.json", produces = "application/json")
-	public @ResponseBody List<UserModel> getUsersForStore(@RequestParam("storeId") Integer userId) {
-//		return inventoryService.getStoresForUser(userId);
-		return configService.getUsers();
+	public @ResponseBody List<UserModel> getUsersForStore(@RequestParam("storeId") Integer storeId) {
+		return configService.getUsersForStore(storeId);
 	}
 	
 	@GetMapping(value = "/store-selections-for-user.json", produces = "application/json")
 	public List<StoreSelectionModel> getStoreSelectionsForUser(@RequestParam("userId") Integer userId) {
-		return inventoryService.getStoreSelections(userId);
+		return configService.getStoreSelections(userId);
 	}
 	
+	@GetMapping(value = "/user-selections-for-store.json", produces = "application/json")
+	public List<UserSelectionModel> getUserSelectionsForStore(@RequestParam("userId") Integer storeId) {
+		return configService.getUserSelections(storeId);
+	}
+
 	@PostMapping(value = "/save-store-assignments.json", produces = "application/json")
 	public MessageModel saveStoreAssignments(@RequestParam("userId") Integer userId, 
 				@RequestParam("storeIds") String storeIds) {
+		configService.assignStores(userId, storeIds);
 		return new MessageModel().withMessage("Under Construction");
 		
 	}
@@ -109,7 +111,7 @@ public class DataController {
 
 	@GetMapping(value = "/items.json", produces = "application/json")
 	public @ResponseBody List<ItemModel> getItems() {
-		 return inventoryService.getItems();
+		 return configService.getItems();
 	}
 
 	@PostMapping(value = "/delete-item.json", produces = "application/json")
