@@ -10,7 +10,7 @@
 			<!-- /.row -->
 			<div class="row">&nbsp;</div>
 			<!-- /.row -->
-			<div class="row">
+			<div class="row" id="stores-table-row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">Manage Stores</div>
@@ -25,6 +25,14 @@
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-no-shadow panel-no-margin" style="text-align: right;" id="upDownButton">
+						<a href="#"><i class="fa fa-chevron-down fa-fw hidden"></i></a>
+						<a href="#"><i class="fa fa-chevron-up fa-fw"></i></a>
+					</div>
+				</div>
+			</div>
 			<!-- /.row -->
 			<div class="row">
 				<div class="col-lg-12 store-properties hidden">
@@ -32,18 +40,28 @@
 						<div class="panel-heading">Store Properties</div>
 						<div class="panel-body">
 							<ul class="nav nav-pills">
-								<li class="active"><a href="#1a" data-toggle="tab">Info</a>
+								<li class="active"><a href="#1a" data-toggle="tab">Users</a>
 								</li>
-								<li><a href="#2a" data-toggle="tab">Users</a></li>
+								<li><a href="#2a" data-toggle="tab">Inventory</a></li>
+								<li><a href="#3a" data-toggle="tab">Statement</a></li>
 							</ul>
 							<div class="tab-content clearfix">
 								<div class="tab-pane active" id="1a">
 									<div class="panel-body">
-										<h4>Info</h4>
+										<div class="panel-body">
+											<div th:replace="fragments :: users-table"></div>
+										</div>
 									</div>
 								</div>
 								<div class="tab-pane" id="2a">
-									<h4>Users</h4>
+									<div class="panel-body">
+										<h4>Inventory</h4>
+									</div>
+								</div>
+								<div class="tab-pane" id="3a">
+									<div class="panel-body">
+										<h4>Statement</h4>
+									</div>
 								</div>
 							</div>
 						</div>

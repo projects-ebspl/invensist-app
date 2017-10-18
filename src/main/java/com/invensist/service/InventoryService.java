@@ -11,6 +11,7 @@ import com.invensist.entities.Store;
 import com.invensist.models.ItemModel;
 import com.invensist.models.StoreModel;
 import com.invensist.models.StoreSelectionModel;
+import com.invensist.models.UserModel;
 
 @org.springframework.stereotype.Service("inventoryService")
 public class InventoryService extends Service {
@@ -38,6 +39,11 @@ public class InventoryService extends Service {
 	}
 	public List<StoreModel> getStoresForUser(Integer userId) {		
 		return inventoryDao.getStoresForUser(userId).stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
+	}
+
+	public List<UserModel> getUsersForStore(Integer userId) {		
+//		return inventoryDao.getUsersForStore(userId).stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
+		return null;
 	}
 
 	public List<StoreSelectionModel> getStoreSelections(Integer userId) {

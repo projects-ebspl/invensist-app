@@ -49,6 +49,12 @@ var StoreService = Service.extend(function() {
 		return this.getJson("/stores.json");
 	};
 	
+	this.getUsersForStore = function(storeId) {
+		return this.getJson("/users-for-store.json", {
+			storeId : storeId
+		});
+	};
+
 	this.deleteStore = function(storeId) {
 		return this.post("/delete-store.json", storeId);
 	};

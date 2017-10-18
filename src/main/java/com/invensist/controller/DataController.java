@@ -57,6 +57,12 @@ public class DataController {
 		return inventoryService.getStoresForUser(userId);
 	}
 	
+	@GetMapping(value = "/users-for-store.json", produces = "application/json")
+	public @ResponseBody List<UserModel> getUsersForStore(@RequestParam("storeId") Integer userId) {
+//		return inventoryService.getStoresForUser(userId);
+		return configService.getUsers();
+	}
+	
 	@GetMapping(value = "/store-selections-for-user.json", produces = "application/json")
 	public List<StoreSelectionModel> getStoreSelectionsForUser(@RequestParam("userId") Integer userId) {
 		return inventoryService.getStoreSelections(userId);

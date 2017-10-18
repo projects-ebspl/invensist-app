@@ -16,17 +16,7 @@
 						<div class="panel-heading">Manage Users</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
-							<table width="100%" class="table table-bordered table-hover"
-								id="users-table">
-								<thead>
-									<tr>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Email</th>
-										<th>Phone</th>
-									</tr>
-								</thead>
-							</table>
+							<div th:replace="fragments :: users-table"></div>
 							<!-- /.table-responsive -->
 						</div>
 						<!-- /.panel-body -->
