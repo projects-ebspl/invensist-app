@@ -129,7 +129,8 @@ public class ConfigService extends com.invensist.service.Service {
 	}
 	
 	public void assignStores(Integer userId, String storeIdsCSV) {
-		configDao.assignStores(userId, Arrays.asList(storeIdsCSV.split(",")).stream().map(id -> Integer.parseInt(id)).collect(Collectors.toList()));
+		String [] storeIds = storeIdsCSV == null || storeIdsCSV.trim().length() == 0 ? new String [0] : storeIdsCSV.split(",");
+		configDao.assignStores(userId, Arrays.asList(storeIds).stream().map(id -> Integer.parseInt(id)).collect(Collectors.toList()));
 	}
 	
 	
