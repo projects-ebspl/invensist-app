@@ -41,8 +41,10 @@ $(document).ready(function() {
 		});
 	};
 
-	$.getSelectedUsers = function() {
-		table.rows({selected: true});
+	$.selectedUser = function() {
+		var rows = table.rows({selected: true});
+		var user = rows.data()[0][5];
+		return user;
 	};
 
 	$.addUser = function() {
@@ -86,6 +88,21 @@ $(document).ready(function() {
 	$.assignStores = function() {
 		storesTable.button( 'assignStores:name' ).nodes().attr('href','#userStoreDialog').attr('data-toggle', 'modal')
 		$("#userStoreDialogTitle").text("Assign Stores");
+		service.getStoreSelections($.selectedUser().id).done(function(data){
+			selector.setData(data);
+		});
+	};
+	
+	$.saveStoreAssignments = function() {
+		var stores = selector.selected();
+		var storeIds = [];
+		for (var i = 0; i < stores.length; i++) {
+			storeIds.push(stores[i].id);
+		}
+		service.saveStoreAssignments($.selectedUser().id, storeIds.join(",")).done(function(data){
+			$("#userStoreDialog").modal('hide');
+			$.refreshStoresTable($.selectedUser().id);
+		});
 	};
 
 
@@ -167,7 +184,6 @@ $(document).ready(function() {
 		var rows = table.rows({selected: true});
 		var user = rows.data()[0][5];
 		props.setData(user);
-		console.log("Calling...");
 		$.refreshStoresTable(user.id);
 
 	});
@@ -218,4 +234,8 @@ $(document).ready(function() {
 	storesTable.on( 'select', function ( e, dt, type, indexes ) {
 		storesTable.columns.adjust().draw(false);
 	});
+
+	var selector = new DualSelector($(".dual-selector"));
+	
+	$("#saveStoreAssignments").click($.saveStoreAssignments);
 });

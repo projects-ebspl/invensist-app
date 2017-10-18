@@ -29,6 +29,18 @@ var UserService = Service.extend(function() {
 		return this.post("/save-user.json", user);
 	};
 
+	this.getStoreSelections = function(userId) {
+		return this.getJson("/store-selections-for-user.json", {
+			userId : userId
+		});
+	};
+	
+	this.saveStoreAssignments = function(userId, storeIds) {
+		return this.post("/save-store-assignments.json", {
+			userId: userId,
+			storeIds: storeIds
+		});
+	};
 });
 
 var StoreService = Service.extend(function() {

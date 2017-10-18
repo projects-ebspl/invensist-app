@@ -7,7 +7,7 @@ public class Store {
 	
 	private String name;
 	
-	private StoreType type;
+	private StoreType storeType;
 
 	/**
 	 * @return the id
@@ -39,18 +39,11 @@ public class Store {
 		return this;
 	}
 
-	/**
-	 * @return the type
-	 */
-	public StoreType getType() {
-		return type;
+	public StoreType getStoreType() {
+		return storeType;
 	}
 
-	/**
-	 * @param type the type to set
-	 */
-	public Store setType(StoreType type) {
-		this.type = type;
-		return this;
+	public void setStoreType(StoreType storeType) {
+		this.storeType = storeType;
 	}
 }

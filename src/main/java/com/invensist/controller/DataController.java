@@ -16,6 +16,7 @@ import com.invensist.models.AssociateModel;
 import com.invensist.models.ItemModel;
 import com.invensist.models.MessageModel;
 import com.invensist.models.StoreModel;
+import com.invensist.models.StoreSelectionModel;
 import com.invensist.models.UserModel;
 import com.invensist.service.ConfigService;
 import com.invensist.service.InventoryService;
@@ -54,6 +55,18 @@ public class DataController {
 	@GetMapping(value = "/stores-for-user.json", produces = "application/json")
 	public @ResponseBody List<StoreModel> getStoresForUser(@RequestParam("userId") Integer userId) {
 		return inventoryService.getStoresForUser(userId);
+	}
+	
+	@GetMapping(value = "/store-selections-for-user.json", produces = "application/json")
+	public List<StoreSelectionModel> getStoreSelectionsForUser(@RequestParam("userId") Integer userId) {
+		return inventoryService.getStoreSelections(userId);
+	}
+	
+	@PostMapping(value = "/save-store-assignments.json", produces = "application/json")
+	public MessageModel saveStoreAssignments(@RequestParam("userId") Integer userId, 
+				@RequestParam("storeIds") String storeIds) {
+		return new MessageModel().withMessage("Under Construction");
+		
 	}
 	
 	@GetMapping(value = "/check-valid-email.json", produces = "application/json")
