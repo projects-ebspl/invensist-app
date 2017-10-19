@@ -124,8 +124,8 @@ public class ConfigDao extends BaseDao {
 	}
 	
 	public List<User> getUsersForStore(int storeId) {
-		String sql = "select id as userid, firstname, lastname, email, phone, address, password, roleAdmin, rolePlanner, roleUser "
-				+ "from Users U, Stores S, UserStoreMapping US where where U.id = US.user and S.id = US.store and S.id = ?";
+		String sql = "select U.id as userid, firstname, lastname, email, phone, address, password, roleAdmin, rolePlanner, roleUser "
+				+ "from Users U, Stores S, UserStoreMapping US where U.id = US.user and S.id = US.store and S.id = ?";
 		return getJdbcTemplate().query(sql, new Object[] {storeId}, new UserRowMapper());
 	}
 

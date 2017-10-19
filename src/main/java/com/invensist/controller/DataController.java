@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -87,7 +88,12 @@ public class DataController {
 		// TODO Delete
 		return new MessageModel().withMessage("Store is deleted successfully");
 	}
-
+	@PostMapping(value="/add-store.json", consumes="application/json")
+	public MessageModel addStore(@RequestBody StoreModel store ){
+		
+		System.out.println(store);
+		return new MessageModel().withMessage("Store is deleted successfully");
+	}
 	@GetMapping(value = "/associates.json", produces = "application/json")
 	public @ResponseBody List<AssociateModel> getAssociates() {
 		ArrayList<AssociateModel> associates = new ArrayList<>();

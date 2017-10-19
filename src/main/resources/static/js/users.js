@@ -81,7 +81,7 @@ $(document).ready(function() {
 			if(confirm("Are you sure you want to delete ?")) {
 				service.deleteUser({
 					userId : (rows.data()[0][4])
-				}).done(function(data) {
+				}).done(function(result) {
 					$.refreshUserTable();
 				});
 			}
