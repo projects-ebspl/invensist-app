@@ -60,7 +60,17 @@ $(document).ready(function() {
 		}
 	};
 	$.setInfo = function(associate){
-		alert(JSON.stringify(associate));
+		props.setData([
+			{label : "Name", value: associate.name},
+			{label : "Email", value: associate.email},
+			{label : "Phone", value: associate.phone},
+			{label : "Address", value: associate.address},
+			{label : "Client", value: associate.client ? "Yes" : "No"},
+			{label : "Vendour", value: associate.vendour ? "Yes" : "No"},
+			{label : "Notes", value: associate.notes}
+		]);
+//		$("#associate-info").text("Component Under Construction");
+
 	};
 	$.setInvoices = function(associate){};
 	$.setOrders = function(associate){};
@@ -115,4 +125,17 @@ $(document).ready(function() {
 	} );
 	
 	$.refreshListing();
+
+	$(".fa-chevron-up").click(function() {
+		$("#associates-table-row").hide();
+		$(".fa-chevron-down").removeClass("hidden");
+		$(this).addClass("hidden");
+	});
+	$(".fa-chevron-down").click(function() {
+		$("#associates-table-row").show();
+		$(".fa-chevron-down").addClass("hidden");
+		$(".fa-chevron-up").removeClass("hidden");
+	});
+	
+	var props = new Properties($("#associate-info"));
 });
