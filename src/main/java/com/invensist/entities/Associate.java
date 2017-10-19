@@ -1,6 +1,7 @@
-package com.invensist.models;
+package com.invensist.entities;
 
-public class AssociateModel {
+public class Associate {
+	
 	private Integer id;
 	private String name;
 	private String email;
@@ -9,6 +10,7 @@ public class AssociateModel {
 	private String notes;
 	private boolean client;
 	private boolean vendour;
+	
 	public Integer getId() {
 		return id;
 	}

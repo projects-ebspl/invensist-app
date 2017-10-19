@@ -1,21 +1,79 @@
 $(document).ready(function() {
-	$.refreshAssociatesTable = function() {
-		table.rows().remove();
+	/* Service */
+	var service = new AssociateService();
+
+	/* Controllers */
+	$.refreshListing = function(){
+		table.clear().draw();
 		service
 		.getAssociates()
 		.done(function(data){
-			for (associate in data) {
-				table.row.add([data[associate].name, data[associate].email, data[associate].phone, data[associate].id]).draw(false);
+			for (i = 0; i < data.length; i++) { 
+				var associate = data[i];
+				table.row.add([associate.name, 
+							   associate.email, 
+							   associate.phone, 
+							   associate
+							   ]).draw(false);
 			}
+			
 			table.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			alert(jqXHR.status);
 		});
 	};
+	$.openAddAssociateDialog = function(){
+		// TODO refreshForm()
+		table.button( 'addAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
+		$("#associateDialogTitle").text("Add Associate Info");
+	};
+	$.openEditAssociateDialog = function(){
+		var rows = table.rows({selected: true});
+		table.button( 'editAssociate:name' ).nodes().attr('href','#').attr('data-toggle', 'modal')
+		if(rows.count() == 0) {
+			alert("Please select an associate to edit.");
+		} else {
+			// TODO Refresh form
+			table.button( 'editAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
+			var rows = table.rows({selected: true});
+			var associate = rows.data()[0][5]; // TODO
+			usersForm.newAssociate = false;
+//			associateForm.setData(user);
+			$("#associateDialogTitle").text("Edit User");
+		}
+		
+		
+		$("#associateDialogTitle").text("Edit Associate Info");
+	};
+	$.saveAssociate = function(associate){};
+	$.deleteAssociate = function(){
+		var rows = table.rows({selected: true});
+		if(rows.count() == 0) {
+			alert("Please select an associate to delete.");
+		} else {
+			service.deleteAssociate({
+				associateId : (rows.data()[0][3])
+			}).done(function(data) {
+				alert(data.message);
+			});
+		}
+	};
+	$.setInfo = function(associate){
+		alert(JSON.stringify(associate));
+	};
+	$.setInvoices = function(associate){};
+	$.setOrders = function(associate){};
+	
+	$.selectedAssociate = function() {
+		var rows = table.rows({selected: true});
+		var associate = rows.data();
+		return associate[0][3];
+	};
 
-	var service = new AssociateService();
 
+	
+	/* UI */
 	var table = $('#associates-table').DataTable({
 		select: {
 			style: 'single'
@@ -27,49 +85,34 @@ $(document).ready(function() {
 		buttons: [
 			{
 				text: '<i class="fa fa-plus fa-fw"></i>',
-				action: function () {
-					$("#associateDialogTitle").text("Add Associate");
-				},
+				action: $.openAddAssociateDialog,
 				name: 'addAssociate',
 				titleAttr: 'Add Associate'
 			},
 			{
 				text: '<i class="fa fa-pencil fa-fw"></i>',
-				action: function () {
-					$("#associateDialogTitle").text("Edit Associate");
-				},
+				action: $.openEditAssociateDialog,
 				name: 'editAssociate',
 				titleAttr: 'Edit Associate'
 			},
 			{
 				text: '<i class="fa fa-trash-o fa-fw"></i>',
-				action: function () {
-					var rows = table.rows({selected: true});
-					if(rows.count() == 0) {
-						alert("Please select an associate to delete.");
-					} else {
-						service.deleteAssociate({
-							associateId : (rows.data()[0][3])
-						}).done(function(data) {
-							alert(data.message);
-						});
-					}
-				},
+				action: $.deleteAssociate,
 				titleAttr: 'Delete Associate'
 			}
 			]
 	});
 
-	table.button( 'addAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
-	table.button( 'editAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
+	
+	
 	
 	table.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
 			$(".associate-properties").removeClass("hidden");
 		}
 		table.columns.adjust().draw();
+		$.setInfo($.selectedAssociate());
 	} );
 	
-	$.refreshAssociatesTable();
-
+	$.refreshListing();
 });

@@ -11,9 +11,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.invensist.dao.mappers.AssociateRowMapper;
 import com.invensist.dao.mappers.ItemRowMapper;
 import com.invensist.dao.mappers.StoreRowMapper;
 import com.invensist.dao.mappers.UserRowMapper;
+import com.invensist.entities.Associate;
 import com.invensist.entities.Item;
 import com.invensist.entities.Store;
 import com.invensist.entities.User;
@@ -229,5 +231,10 @@ public class ConfigDao extends BaseDao {
 	
 	public void deleteItemById(int id) {
 		deleteObjectFromTableById("Item", id);
+	}
+
+	public List<Associate> getAssociates() {
+		String sql = "select id, name, email, phone, address, notes, client, vendour from Associates";
+		return getJdbcTemplate().query(sql, new AssociateRowMapper());
 	}
 }
