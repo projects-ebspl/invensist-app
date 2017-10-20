@@ -84,13 +84,13 @@ public class DataController {
 	}
 
 	@PostMapping(value = "/delete-store.json", produces = "application/json")
-	public MessageModel deleteStore(@RequestParam Integer storeId) {
-		// TODO Delete
-		return new MessageModel().withMessage("Store is deleted successfully");
+	public List<StoreModel> deleteStore(@RequestParam Integer storeId) {		
+		configService.deleteStore(storeId);
+		return getStores();
 	}
 	@PostMapping(value="/add-store.json")
-	public List<StoreModel> addStore(@ModelAttribute("store")StoreModel store, BindingResult bindingResult){
-		configService.addStore(store);		
+	public List<StoreModel> saveOrUpdateStore(@ModelAttribute("store")StoreModel store, BindingResult bindingResult){
+		configService.saveOrUpdateStore(store);
 		return getStores();
 	}
 	@GetMapping(value = "/associates.json", produces = "application/json")

@@ -51,36 +51,36 @@ $(document).ready(function() {
 		storesForm.newStore = true;		
 	};
 	
-	/*$.editUser = function() {
+	$.editStore = function() {
 		var rows = table.rows({selected: true});
 		table.button( 'editStore:name' ).nodes().attr('href','#').attr('data-toggle', 'modal')
 		if(rows.count() == 0) {
 			alert("Please select a Store to edit.");
 		} else {
 			storesForm.refresh();
-			table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
+			table.button( 'editStore:name' ).nodes().attr('href','#storeDialog').attr('data-toggle', 'modal')
 			var rows = table.rows({selected: true});
-			var store = rows.data()[0][2];
+			var store = rows.data()[0][3];
 			storesForm.newStore = false;
 			storesForm.setData(store);
-			$("#userDialogTitle").text("Edit Store");			
+			$("#storeDialogTitle").text("Edit Store");			
 		}
 	};
 	
 	$.deleteStore = function() {
 		var rows = table.rows({selected: true});
 		if(rows.count() == 0) {
-			alert("Please select a store to delete.");
+			alert("Please select a user to delete.");
 		} else {
 			if(confirm("Are you sure you want to delete ?")) {
 				service.deleteStore({
-					storeId : (rows.data()[0][2].id)
-				}).done(function(data) {
-					$.refreshUserTable();
+					storeId : (rows.data()[0][3].id)
+				}).done(function(result) {
+					$.refreshStoreTable();
 				});
 			}
 		}
-	};*/
+	};
 	
 	/*
 	 * Store Form
@@ -90,7 +90,7 @@ $(document).ready(function() {
 	storesForm.onSubmit(function(data) {
 		
 		service.addStore(data).done(function(result){
-			$.refreshUserTable();
+			$.refreshStoreTable();
 		});
 	});
 	
@@ -119,18 +119,7 @@ $(document).ready(function() {
 			},
 			{
 				text: '<i class="fa fa-trash-o fa-fw"></i>',
-				action: function () {
-					var rows = table.rows({selected: true});
-					if(rows.count() == 0) {
-						alert("Please select a store to delete.");
-					} else {
-						service.deleteStore({
-							storeId : (rows.data()[0][2])
-						}).done(function(data) {
-							alert("deleteStore.done()" + data.message);
-						});
-					}
-				},
+				action: $.deleteStore,
 				titleAttr: 'Delete Store'
 			}
 			]
@@ -143,7 +132,7 @@ $(document).ready(function() {
 		table.columns.adjust().draw();
 		var rows = table.rows({selected: true});
 		var store = rows.data()[0][3];		
-		alert("store: " + JSON.stringify(store));
+		//alert("store: " + JSON.stringify(store));
 		$.refreshUsersTable(store.id);
 	});
 
