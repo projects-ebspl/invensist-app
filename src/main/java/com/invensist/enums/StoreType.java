@@ -22,7 +22,7 @@ public enum StoreType {
 	
 	public static StoreType geTypeByValue(String value) {
 		for (StoreType type : values()) {
-			if(type.equals(value)) {
+			if(type.value.equals(value)) {
 				return type;
 			}
 		}

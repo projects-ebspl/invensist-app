@@ -6,7 +6,7 @@ $(document).ready(function() {
 		.done(function(data){
 			for (i = 0; i < data.length; i++) {
 				var store = data[i];
-				table.row.add([store.name, store.type, store]).draw(false);
+				table.row.add([store.name, store.type,store.id, store]).draw(false);
 			}
 			table.row(':eq(0)', { page: 'current' }).select();
 		})
@@ -37,6 +37,63 @@ $(document).ready(function() {
 		});
 	};
 	
+	$.selectedStore = function() {
+		var rows = table.rows({selected: true});
+		var store = rows.data()[0][3];
+		return store;
+	};
+
+	$.addStore = function() {
+		
+		storesForm.refresh();
+		table.button( 'addStore:name' ).nodes().attr('href','#storeDialog').attr('data-toggle', 'modal')
+		$("#storeDialogTitle").text("Add Store");
+		storesForm.newStore = true;		
+	};
+	
+	/*$.editUser = function() {
+		var rows = table.rows({selected: true});
+		table.button( 'editStore:name' ).nodes().attr('href','#').attr('data-toggle', 'modal')
+		if(rows.count() == 0) {
+			alert("Please select a Store to edit.");
+		} else {
+			storesForm.refresh();
+			table.button( 'editUser:name' ).nodes().attr('href','#userDialog').attr('data-toggle', 'modal')
+			var rows = table.rows({selected: true});
+			var store = rows.data()[0][2];
+			storesForm.newStore = false;
+			storesForm.setData(store);
+			$("#userDialogTitle").text("Edit Store");			
+		}
+	};
+	
+	$.deleteStore = function() {
+		var rows = table.rows({selected: true});
+		if(rows.count() == 0) {
+			alert("Please select a store to delete.");
+		} else {
+			if(confirm("Are you sure you want to delete ?")) {
+				service.deleteStore({
+					storeId : (rows.data()[0][2].id)
+				}).done(function(data) {
+					$.refreshUserTable();
+				});
+			}
+		}
+	};*/
+	
+	/*
+	 * Store Form
+	 */
+	var storesForm = new Form($("#storesForm"));
+	
+	storesForm.onSubmit(function(data) {
+		
+		service.addStore(data).done(function(result){
+			$.refreshUserTable();
+		});
+	});
+	
 	var service = new StoreService();
 
 	var table = $('#stores-table').DataTable({
@@ -50,19 +107,13 @@ $(document).ready(function() {
 		buttons: [
 			{
 				text: '<i class="fa fa-plus fa-fw"></i>',
-				action: function () {
-					$("#storeDialogTitle").text("Add Store");
-					$("#passwords").show();
-				},
+				action: $.addStore,
 				name: 'addStore',
 				titleAttr: 'Add Store'
 			},
 			{
 				text: '<i class="fa fa-pencil fa-fw"></i>',
-				action: function () {
-					$("#storeDialogTitle").text("Edit Store");
-					$("#passwords").hide();
-				},
+				action: $.editStore,
 				name: 'editStore',
 				titleAttr: 'Edit Store'
 			},
@@ -91,7 +142,8 @@ $(document).ready(function() {
 		}
 		table.columns.adjust().draw();
 		var rows = table.rows({selected: true});
-		var store = rows.data()[0][2];
+		var store = rows.data()[0][3];		
+		alert("store: " + JSON.stringify(store));
 		$.refreshUsersTable(store.id);
 	});
 

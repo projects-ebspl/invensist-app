@@ -54,6 +54,10 @@ var StoreService = Service.extend(function() {
 			storeId : storeId
 		});
 	};
+	
+	this.addStore = function(store) {
+		return this.post("/add-store.json", store);
+	};
 
 	this.deleteStore = function(storeId) {
 		return this.post("/delete-store.json", storeId);
