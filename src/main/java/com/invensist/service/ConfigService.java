@@ -77,10 +77,10 @@ public class ConfigService extends com.invensist.service.Service {
 		}		
 	}
 
-	private void deleteStore(int id) {
+	public void deleteStore(int id) {
 		configDao.deleteStoreById(id);		
 	}
-	public void addStore(StoreModel storeModel) {
+	public void saveOrUpdateStore(StoreModel storeModel) {
 		Store store = this.toStore(storeModel);
 		configDao.saveStore(store);
 	}
