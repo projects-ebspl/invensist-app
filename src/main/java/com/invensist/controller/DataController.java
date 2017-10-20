@@ -88,11 +88,10 @@ public class DataController {
 		// TODO Delete
 		return new MessageModel().withMessage("Store is deleted successfully");
 	}
-	@PostMapping(value="/add-store.json", consumes="application/json")
-	public MessageModel addStore(@RequestBody StoreModel store ){
-		
-		System.out.println(store);
-		return new MessageModel().withMessage("Store is deleted successfully");
+	@PostMapping(value="/add-store.json")
+	public List<StoreModel> addStore(@ModelAttribute("store")StoreModel store, BindingResult bindingResult){
+		configService.addStore(store);		
+		return getStores();
 	}
 	@GetMapping(value = "/associates.json", produces = "application/json")
 	public @ResponseBody List<AssociateModel> getAssociates() {

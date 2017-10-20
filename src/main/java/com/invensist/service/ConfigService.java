@@ -80,6 +80,11 @@ public class ConfigService extends com.invensist.service.Service {
 	private void deleteStore(int id) {
 		configDao.deleteStoreById(id);		
 	}
+	public void addStore(StoreModel storeModel) {
+		Store store = this.toStore(storeModel);
+		configDao.saveStore(store);
+	}
+	
 	public StoreModel getStore(int id) {
 		return toStoreModel(configDao.getStoreById(id));
 	}
@@ -198,6 +203,15 @@ public class ConfigService extends com.invensist.service.Service {
 		itemModel.setItemType(item.getType());
 		return itemModel;
 	}
-
+	private Store toStore(StoreModel storeModel) {
+		if(storeModel == null){
+			return null;
+		}		
+		Store store = new Store();
+		store.setId(storeModel.getId());
+		store.setName(storeModel.getName());
+		store.setStoreType(storeModel.getStoreType());
+		return store;
+	}
 	
 }

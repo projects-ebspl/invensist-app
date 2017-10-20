@@ -5,12 +5,12 @@ $(document).ready(function() {
 		.done(function(data){
 			for (i = 0; i < data.length; i++) {
 				var store = data[i];
-				table.row.add([store.name, store.type, store]).draw(false);
+				table.row.add([store.name, store.type,store.id, store]).draw(false);
 			}
 			table.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
-			alert(jqXHR.status);
+			alert("failed:" + jqXHR.status);
 		});
 	};
 
@@ -31,18 +31,18 @@ $(document).ready(function() {
 			usersTable.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
-			alert(jqXHR.errorThrown);
+			alert("failed:" + jqXHR.errorThrown);
 		});
 	};
 	
 	$.selectedStore = function() {
 		var rows = table.rows({selected: true});
-		var store = rows.data()[0][2];
+		var store = rows.data()[0][3];
 		return store;
 	};
 
 	$.addStore = function() {
-		alert("yogi");
+		
 		storesForm.refresh();
 		table.button( 'addStore:name' ).nodes().attr('href','#storeDialog').attr('data-toggle', 'modal')
 		$("#storeDialogTitle").text("Add Store");
@@ -86,7 +86,7 @@ $(document).ready(function() {
 	var storesForm = new Form($("#storesForm"));
 	
 	storesForm.onSubmit(function(data) {
-		alert(JSON.stringify(data));
+		
 		service.addStore(data).done(function(result){
 			$.refreshUserTable();
 		});
@@ -129,8 +129,8 @@ $(document).ready(function() {
 		}
 		table.columns.adjust().draw();
 		var rows = table.rows({selected: true});
-		var store = rows.data()[0][2];
-		alert("store: " + store);
+		var store = rows.data()[0][3];		
+		alert("store: " + JSON.stringify(store));
 		$.refreshUsersTable(store.id);
 	});
 

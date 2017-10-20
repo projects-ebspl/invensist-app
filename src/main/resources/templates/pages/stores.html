@@ -84,18 +84,23 @@
 					<h4 class="modal-title" id="storeDialogTitle"></h4>
 				</div>
 				<!-- <div class="modal-body"> -->
-				<form class="form-horizontal" id="storesForm">
+				<form class="form-horizontal" id="storesForm" novalidate="novalidate" name="store">
+					<div class="form-group">						
+						<div class="col-xs-5">
+							<input type="hidden" class="form-control" id="id" name="id"  />
+						</div>
+					</div>
 				    <div class="form-group">
 				        <label for="Name" class="control-label col-xs-4">Name</label>
 				        <div class="col-xs-5">
-				            <input type="text" class="form-control" id="name" placeholder="Name"/>
+				            <input type="text" class="form-control" id="name"  name="name" placeholder="Name" required="required"/>
 				        </div>
 				    </div>
 				    <div class="form-group">
 				        <label for="type" class="control-label col-xs-4">Type</label>
 				        <div class="col-xs-5">
-				            <select class="form-control" id="type">
-				            	<option th:each="type : ${storeTypes}" th:value="${type}" th:text="${type.value}"></option>
+				            <select class="form-control" id="type" name="type" placeholder="type">
+				            	<option th:each="type : ${storeTypes}" th:value="${type.value}" th:text="${type.value}"></option>
 				            </select>
 				        </div>
 				    </div>
