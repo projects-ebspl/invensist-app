@@ -24,7 +24,7 @@ $(document).ready(function() {
 		});
 	};
 	$.openAddAssociateDialog = function(){
-		// TODO refreshForm()
+		associatesForm.refresh();
 		table.button( 'addAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
 		$("#associateDialogTitle").text("Add Associate Info");
 	};
@@ -34,13 +34,12 @@ $(document).ready(function() {
 		if(rows.count() == 0) {
 			alert("Please select an associate to edit.");
 		} else {
-			// TODO Refresh form
+			associatesForm.refresh();
 			table.button( 'editAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
-			var rows = table.rows({selected: true});
-			var associate = rows.data()[0][5]; // TODO
-			usersForm.newAssociate = false;
+			associatesForm.newAssociate = false;
+//			selectedAssociate
 //			associateForm.setData(user);
-			$("#associateDialogTitle").text("Edit User");
+			$("#associateDialogTitle").text("Edit Associate Info");
 		}
 		
 		
@@ -136,6 +135,12 @@ $(document).ready(function() {
 		$(".fa-chevron-down").addClass("hidden");
 		$(".fa-chevron-up").removeClass("hidden");
 	});
+	
+	/*
+	 * User Form
+	 */
+	var associatesForm = new Form($("#associatesForm"));
+	
 	
 	var props = new Properties($("#associate-info"));
 });
