@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$.refreshStoreTable = function() {
+		table.rows().remove();
 		service
 		.getStores()
 		.done(function(data){
@@ -10,12 +11,13 @@ $(document).ready(function() {
 			table.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
-			alert("failed:" + jqXHR.status);
+			console.log("refreshStoreTable:" + jqXHR.status);
 		});
 	};
 
 	
 	$.refreshUsersTable = function(storeId) {
+		usersTable.rows().remove();
 		service
 		.getUsersForStore(storeId)
 		.done(function(data){
@@ -31,7 +33,7 @@ $(document).ready(function() {
 			usersTable.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
-			alert("failed:" + jqXHR.errorThrown);
+			console.log("refreshUsersTable:" + jqXHR.errorThrown);
 		});
 	};
 	
@@ -117,7 +119,18 @@ $(document).ready(function() {
 			},
 			{
 				text: '<i class="fa fa-trash-o fa-fw"></i>',
-				action: $.deleteStore,
+				action: function () {
+					var rows = table.rows({selected: true});
+					if(rows.count() == 0) {
+						alert("Please select a store to delete.");
+					} else {
+						service.deleteStore({
+							storeId : (rows.data()[0][2])
+						}).done(function(data) {
+							alert("deleteStore.done()" + data.message);
+						});
+					}
+				},
 				titleAttr: 'Delete Store'
 			}
 			]

@@ -1,4 +1,18 @@
 $(document).ready(function() {
+	$.refreshAssociatesTable = function() {
+		table.rows().remove();
+		service
+		.getAssociates()
+		.done(function(data){
+			for (associate in data) {
+				table.row.add([data[associate].name, data[associate].email, data[associate].phone, data[associate].id]).draw(false);
+			}
+			table.row(':eq(0)', { page: 'current' }).select();
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.status);
+		});
+	};
 
 	var service = new AssociateService();
 
@@ -49,23 +63,13 @@ $(document).ready(function() {
 	table.button( 'addAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
 	table.button( 'editAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
 	
-	
-	service
-	.getAssociates()
-	.done(function(data){
-		for (associate in data) {
-			table.row.add([data[associate].name, data[associate].email, data[associate].phone, data[associate].id]).draw(false);
-		}
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		alert(jqXHR.status);
-	});
-
-
 	table.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
 			$(".associate-properties").removeClass("hidden");
 		}
 		table.columns.adjust().draw();
 	} );
+	
+	$.refreshAssociatesTable();
+
 });
