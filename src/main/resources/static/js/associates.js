@@ -36,9 +36,7 @@ $(document).ready(function() {
 		} else {
 			associatesForm.refresh();
 			table.button( 'editAssociate:name' ).nodes().attr('href','#associateDialog').attr('data-toggle', 'modal')
-			associatesForm.newAssociate = false;
-//			selectedAssociate
-//			associateForm.setData(user);
+			associatesForm.setData($.selectedAssociate());
 			$("#associateDialogTitle").text("Edit Associate Info");
 		}
 
@@ -46,6 +44,7 @@ $(document).ready(function() {
 		$("#associateDialogTitle").text("Edit Associate Info");
 	};
 	$.saveAssociate = function(associate){
+		console.log(" $$$$ " + JSON.stringify(associate));
 		service.saveAssociate(associate).done(function(){
 			$.refreshListing();
 		});
@@ -80,8 +79,8 @@ $(document).ready(function() {
 
 	$.selectedAssociate = function() {
 		var rows = table.rows({selected: true});
-		var associate = rows.data();
-		return associate[0][3];
+		var associate = rows.data()[0][3];
+		return associate;
 	};
 
 
@@ -141,7 +140,7 @@ $(document).ready(function() {
 	});
 
 	/*
-	 * User Form
+	 * Associate Form
 	 */
 	var associatesForm = new Form($("#associatesForm"));
 	associatesForm.onSubmit($.saveAssociate);

@@ -148,6 +148,7 @@ public class ConfigService extends com.invensist.service.Service {
 		Associate associate = new Associate();
 		copyProperties(associate, associateModel);
 		configDao.saveAssociate(associate);
+		System.out.println(associateModel.getClient() + " ::::: " + associateModel.getVendour());
 	}
 
 	private UserModel toUserModel(User user){

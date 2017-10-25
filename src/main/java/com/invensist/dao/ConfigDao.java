@@ -246,7 +246,7 @@ public class ConfigDao extends BaseDao {
 					+ " client = ?, vendour = ?, notes = ?";
 			getJdbcTemplate().update(sql, 
 					new Object[] {associate.getName(), associate.getEmail(), associate.getPhone(), associate.getAddress(),
-							associate.getClient(), associate.getVendour(), associate.getNotes()});						
+							associate.getClient() ? 1 : 0, associate.getVendour() ? 1 : 0, associate.getNotes()});						
 			
 		} else {
 			// Save as update
@@ -254,7 +254,7 @@ public class ConfigDao extends BaseDao {
 					+ ", client = ?, vendour = ?, notes = ? where id = ?";
 			getJdbcTemplate().update(sql, 
 					new Object[] {associate.getName(), associate.getEmail(), associate.getPhone(), associate.getAddress(), 
-							associate.getClient(), associate.getVendour(), associate.getNotes(), associate.getId()}); 
+							associate.getClient() ? 1 : 0, associate.getVendour() ? 1 : 0, associate.getNotes(), associate.getId()}); 
 		}
 	}
 }
