@@ -237,4 +237,24 @@ public class ConfigDao extends BaseDao {
 		String sql = "select id, name, email, phone, address, notes, client, vendour from Associates";
 		return getJdbcTemplate().query(sql, new AssociateRowMapper());
 	}
+
+	@Transactional("transactionManager")
+	public void saveAssociate(Associate associate) {
+		if(associate.getId() == null) {
+			// Save as new Associate 
+			String sql = "insert into Associates set name = ?, email = ?, phone = ?, address = ?,"
+					+ " client = ?, vendour = ?, notes = ?";
+			getJdbcTemplate().update(sql, 
+					new Object[] {associate.getName(), associate.getEmail(), associate.getPhone(), associate.getAddress(),
+							associate.getClient(), associate.getVendour(), associate.getNotes()});						
+			
+		} else {
+			// Save as update
+			String sql = "update Associates set  name = ?, email = ?, phone = ?, address = ?"
+					+ ", client = ?, vendour = ?, notes = ? where id = ?";
+			getJdbcTemplate().update(sql, 
+					new Object[] {associate.getName(), associate.getEmail(), associate.getPhone(), associate.getAddress(), 
+							associate.getClient(), associate.getVendour(), associate.getNotes(), associate.getId()}); 
+		}
+	}
 }

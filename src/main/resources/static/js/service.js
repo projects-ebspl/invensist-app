@@ -70,6 +70,11 @@ var AssociateService = Service.extend(function() {
 	this.deleteAssociate = function(associateId) {
 		return this.post("/delete-associate.json", associateId);
 	};
+	
+	this.saveAssociate = function(associate) {
+		return this.post("/save-associate.json", associate);
+	};
+	
 });
 
 var ItemService = Service.extend(function() {

@@ -108,4 +108,9 @@ public class DataController {
 		// TODO Delete
 		return new MessageModel().withMessage("Item is deleted successfully");
 	}
+	
+	@PostMapping("/save-associate.json")
+	public void saveAssociate(@ModelAttribute("associate")AssociateModel associate, BindingResult bindingResult) {
+		configService.saveAssociate(associate);
+	}
 }

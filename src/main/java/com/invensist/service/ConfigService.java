@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.invensist.dao.ConfigDao;
+import com.invensist.entities.Associate;
 import com.invensist.entities.Item;
 import com.invensist.entities.Store;
 import com.invensist.entities.User;
@@ -141,6 +142,12 @@ public class ConfigService extends com.invensist.service.Service {
 			BeanUtils.copyProperties(associate, model);
 			return model;
 		}).collect(Collectors.toList());
+	}
+
+	public void saveAssociate(AssociateModel associateModel) {
+		Associate associate = new Associate();
+		copyProperties(associate, associateModel);
+		configDao.saveAssociate(associate);
 	}
 
 	private UserModel toUserModel(User user){

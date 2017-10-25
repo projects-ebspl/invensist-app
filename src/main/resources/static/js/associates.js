@@ -11,12 +11,12 @@ $(document).ready(function() {
 			for (i = 0; i < data.length; i++) { 
 				var associate = data[i];
 				table.row.add([associate.name, 
-							   associate.email, 
-							   associate.phone, 
-							   associate
-							   ]).draw(false);
+					associate.email, 
+					associate.phone, 
+					associate
+					]).draw(false);
 			}
-			
+
 			table.row(':eq(0)', { page: 'current' }).select();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
@@ -41,11 +41,15 @@ $(document).ready(function() {
 //			associateForm.setData(user);
 			$("#associateDialogTitle").text("Edit Associate Info");
 		}
-		
-		
+
+
 		$("#associateDialogTitle").text("Edit Associate Info");
 	};
-	$.saveAssociate = function(associate){};
+	$.saveAssociate = function(associate){
+		service.saveAssociate(associate).done(function(){
+			$.refreshListing();
+		});
+	};
 	$.deleteAssociate = function(){
 		var rows = table.rows({selected: true});
 		if(rows.count() == 0) {
@@ -67,13 +71,13 @@ $(document).ready(function() {
 			{label : "Client", value: associate.client ? "Yes" : "No"},
 			{label : "Vendour", value: associate.vendour ? "Yes" : "No"},
 			{label : "Notes", value: associate.notes}
-		]);
+			]);
 //		$("#associate-info").text("Component Under Construction");
 
 	};
 	$.setInvoices = function(associate){};
 	$.setOrders = function(associate){};
-	
+
 	$.selectedAssociate = function() {
 		var rows = table.rows({selected: true});
 		var associate = rows.data();
@@ -81,7 +85,7 @@ $(document).ready(function() {
 	};
 
 
-	
+
 	/* UI */
 	var table = $('#associates-table').DataTable({
 		select: {
@@ -112,9 +116,9 @@ $(document).ready(function() {
 			]
 	});
 
-	
-	
-	
+
+
+
 	table.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
 			$(".associate-properties").removeClass("hidden");
@@ -122,7 +126,7 @@ $(document).ready(function() {
 		table.columns.adjust().draw();
 		$.setInfo($.selectedAssociate());
 	} );
-	
+
 	$.refreshListing();
 
 	$(".fa-chevron-up").click(function() {
@@ -135,12 +139,12 @@ $(document).ready(function() {
 		$(".fa-chevron-down").addClass("hidden");
 		$(".fa-chevron-up").removeClass("hidden");
 	});
-	
+
 	/*
 	 * User Form
 	 */
 	var associatesForm = new Form($("#associatesForm"));
-	
-	
+	associatesForm.onSubmit($.saveAssociate);
+
 	var props = new Properties($("#associate-info"));
 });
