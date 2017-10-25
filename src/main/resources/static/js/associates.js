@@ -55,9 +55,9 @@ $(document).ready(function() {
 			alert("Please select an associate to delete.");
 		} else {
 			service.deleteAssociate({
-				associateId : (rows.data()[0][3])
+				associateId : (rows.data()[0][3]["id"])
 			}).done(function(data) {
-				alert(data.message);
+				$.refreshListing();
 			});
 		}
 	};

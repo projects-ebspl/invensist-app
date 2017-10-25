@@ -257,4 +257,9 @@ public class ConfigDao extends BaseDao {
 							associate.getClient() ? 1 : 0, associate.getVendour() ? 1 : 0, associate.getNotes(), associate.getId()}); 
 		}
 	}
+
+	public void deleteAssociateById(int id) {
+		String sql = "delete from Associates where id = ?";
+		getJdbcTemplate().update(sql, new Object[] {id});
+	}
 }

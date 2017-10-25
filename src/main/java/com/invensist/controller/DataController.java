@@ -94,7 +94,7 @@ public class DataController {
 	
 	@PostMapping(value = "/delete-associate.json", produces = "application/json")
 	public MessageModel deleteAssociate(@RequestParam Integer associateId) {
-		// TODO Delete
+		configService.deleteAssociate(associateId);
 		return new MessageModel().withMessage("Associate is deleted successfully");
 	}
 
@@ -111,7 +111,6 @@ public class DataController {
 	
 	@PostMapping("/save-associate.json")
 	public void saveAssociate(@ModelAttribute("associate")AssociateModel associate, BindingResult bindingResult) {
-		System.out.println(associate.getName() + " : " + associate.getClient() + " : " + associate.getVendour());
 		configService.saveAssociate(associate);
 	}
 }
