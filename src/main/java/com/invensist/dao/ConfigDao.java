@@ -11,9 +11,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.invensist.dao.mappers.AssociateRowMapper;
 import com.invensist.dao.mappers.ItemRowMapper;
 import com.invensist.dao.mappers.StoreRowMapper;
 import com.invensist.dao.mappers.UserRowMapper;
+import com.invensist.entities.Associate;
 import com.invensist.entities.Item;
 import com.invensist.entities.Store;
 import com.invensist.entities.User;
@@ -229,5 +231,35 @@ public class ConfigDao extends BaseDao {
 	
 	public void deleteItemById(int id) {
 		deleteObjectFromTableById("Item", id);
+	}
+
+	public List<Associate> getAssociates() {
+		String sql = "select id, name, email, phone, address, notes, client, vendour from Associates";
+		return getJdbcTemplate().query(sql, new AssociateRowMapper());
+	}
+
+	@Transactional("transactionManager")
+	public void saveAssociate(Associate associate) {
+		if(associate.getId() == null) {
+			// Save as new Associate 
+			String sql = "insert into Associates set name = ?, email = ?, phone = ?, address = ?,"
+					+ " client = ?, vendour = ?, notes = ?";
+			getJdbcTemplate().update(sql, 
+					new Object[] {associate.getName(), associate.getEmail(), associate.getPhone(), associate.getAddress(),
+							associate.getClient() ? 1 : 0, associate.getVendour() ? 1 : 0, associate.getNotes()});						
+			
+		} else {
+			// Save as update
+			String sql = "update Associates set  name = ?, email = ?, phone = ?, address = ?"
+					+ ", client = ?, vendour = ?, notes = ? where id = ?";
+			getJdbcTemplate().update(sql, 
+					new Object[] {associate.getName(), associate.getEmail(), associate.getPhone(), associate.getAddress(), 
+							associate.getClient() ? 1 : 0, associate.getVendour() ? 1 : 0, associate.getNotes(), associate.getId()}); 
+		}
+	}
+
+	public void deleteAssociateById(int id) {
+		String sql = "delete from Associates where id = ?";
+		getJdbcTemplate().update(sql, new Object[] {id});
 	}
 }

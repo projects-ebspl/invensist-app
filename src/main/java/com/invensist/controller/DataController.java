@@ -1,6 +1,5 @@
 package com.invensist.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,22 +94,12 @@ public class DataController {
 	}
 	@GetMapping(value = "/associates.json", produces = "application/json")
 	public @ResponseBody List<AssociateModel> getAssociates() {
-		ArrayList<AssociateModel> associates = new ArrayList<>();
-		for (int i = 1; i <= 20; i++) {
-			AssociateModel model = new AssociateModel();
-			model.setId(i);
-			model.setName("NAME" + i);
-			model.setEmail("email" + i);
-			model.setPhone("phone" + i);
-			model.setAddress("address" + i);
-			associates.add(model);
-		}
-		return associates;
+		return configService.getAssociates();
 	}
 	
 	@PostMapping(value = "/delete-associate.json", produces = "application/json")
 	public MessageModel deleteAssociate(@RequestParam Integer associateId) {
-		// TODO Delete
+		configService.deleteAssociate(associateId);
 		return new MessageModel().withMessage("Associate is deleted successfully");
 	}
 
@@ -123,5 +112,10 @@ public class DataController {
 	public MessageModel deleteItem(@RequestParam Integer itemId) {
 		// TODO Delete
 		return new MessageModel().withMessage("Item is deleted successfully");
+	}
+	
+	@PostMapping("/save-associate.json")
+	public void saveAssociate(@ModelAttribute("associate")AssociateModel associate, BindingResult bindingResult) {
+		configService.saveAssociate(associate);
 	}
 }

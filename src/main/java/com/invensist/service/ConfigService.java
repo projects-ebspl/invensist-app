@@ -7,11 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.invensist.dao.ConfigDao;
+import com.invensist.entities.Associate;
 import com.invensist.entities.Item;
 import com.invensist.entities.Store;
 import com.invensist.entities.User;
+import com.invensist.models.AssociateModel;
 import com.invensist.models.ItemModel;
 import com.invensist.models.StoreModel;
 import com.invensist.models.StoreSelectionModel;
@@ -138,7 +141,24 @@ public class ConfigService extends com.invensist.service.Service {
 		configDao.assignStores(userId, Arrays.asList(storeIds).stream().map(id -> Integer.parseInt(id)).collect(Collectors.toList()));
 	}
 	
-	
+	public List<AssociateModel> getAssociates() {
+		return configDao.getAssociates().stream().map(associate -> {
+			AssociateModel model = new AssociateModel();
+			BeanUtils.copyProperties(associate, model);
+			return model;
+		}).collect(Collectors.toList());
+	}
+
+	public void saveAssociate(AssociateModel associateModel) {
+		Associate associate = new Associate();
+		copyProperties(associate, associateModel);
+		configDao.saveAssociate(associate);
+	}
+
+	public void deleteAssociate(int id){
+		configDao.deleteAssociateById(id);
+	}
+
 	private UserModel toUserModel(User user){
 
 		if(user == null){

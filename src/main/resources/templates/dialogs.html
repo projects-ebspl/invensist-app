@@ -16,9 +16,9 @@
 				</div>
 				<form class="form-horizontal modal-body" id="usersForm"
 					novalidate="novalidate" name="user">
-					<div class="form-group">						
+					<div class="form-group">
 						<div class="col-xs-5">
-							<input type="hidden" class="form-control" id="id" name="id"  />
+							<input type="hidden" class="form-control" id="id" name="id" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -114,7 +114,8 @@
 			</div>
 		</div>
 	</div>
-	<div id="userStoreDialog" class="modal fade" th:fragment="user-store-dialog">
+	<div id="userStoreDialog" class="modal fade"
+		th:fragment="user-store-dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -125,10 +126,93 @@
 				<div class="modal-body dual-selector"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary" id="saveStoreAssignments">Save changes</button>
+					<button type="submit" class="btn btn-primary"
+						id="saveStoreAssignments">Save changes</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- Modal HTML -->
+	<div id="associateDialog" class="modal fade"
+		th:fragment="associate-dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="associateDialogTitle"></h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="associatesForm">
+						<div class="form-group">
+							<div class="col-xs-5">
+								<input type="hidden" class="form-control" id="id" name="id" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="name" class="control-label col-xs-4">Name *</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" id="name" name="name"
+									placeholder="Name" required="required"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="email" class="control-label col-xs-4">Email</label>
+							<div class="col-xs-5">
+								<input type="email" class="form-control" id="email"
+									placeholder="Email" name="email"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="phone" class="control-label col-xs-4">Phone</label>
+							<div class="col-xs-5">
+								<input type="tel" class="form-control" id="phone"
+									placeholder="Phone" name="phone"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="address" class="control-label col-xs-4">Address</label>
+							<div class="col-xs-5">
+								<textarea class="form-control" id="address"
+									placeholder="Address" name="address"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="types" class="control-label col-xs-4">Type</label>
+							<div class="form-check col-xs-5 roles">
+								<div class="radio type">
+									<label class="form-check-label"> <input
+										class="form-check-input" type="checkbox" name="client"
+										checked="checked" /> Client
+									</label>
+								</div>
+								<div class="radio role">
+									<label class="form-check-label"> <input
+										class="form-check-input" type="checkbox" name="vendour" />
+										Vendour
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="notes" class="control-label col-xs-4">Notes</label>
+							<div class="col-xs-5">
+								<textarea class="form-control" id="notes" placeholder="Notes"
+									name="notes"></textarea>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Save
+								changes</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>

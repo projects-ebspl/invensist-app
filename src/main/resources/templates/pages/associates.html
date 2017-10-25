@@ -10,7 +10,7 @@
 			<!-- /.row -->
 			<div class="row">&nbsp;</div>
 			<!-- /.row -->
-			<div class="row">
+			<div class="row" id="associates-table-row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">Manage Associates</div>
@@ -36,6 +36,15 @@
 			</div>
 			<!-- /.row -->
 			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-no-shadow panel-no-margin" style="text-align: right;" id="upDownButton">
+						<a href="#"><i class="fa fa-chevron-down fa-fw hidden"></i></a>
+						<a href="#"><i class="fa fa-chevron-up fa-fw"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- /.row -->
+			<div class="row">
 				<div class="col-lg-12 associate-properties hidden">
 					<div class="panel panel-default">
 						<div class="panel-heading">Associate Properties</div>
@@ -45,12 +54,11 @@
 								</li>
 								<li><a href="#2a" data-toggle="tab">Invoices</a></li>
 								<li><a href="#3a" data-toggle="tab">Orders</a></li>
-								<li><a href="#3a" data-toggle="tab">Bank Details</a></li>
 							</ul>
 							<div class="tab-content clearfix">
 								<div class="tab-pane active" id="1a">
 									<div class="panel-body">
-										<h4>Info</h4>
+										<div id="associate-info"></div>
 									</div>
 								</div>
 								<div class="tab-pane" id="2a">
@@ -58,9 +66,6 @@
 								</div>
 								<div class="tab-pane" id="3a">
 									<h4>Orders</h4>
-								</div>
-								<div class="tab-pane" id="4a">
-									<h4>Bank Details</h4>
 								</div>
 							</div>
 						</div>
@@ -72,51 +77,7 @@
 		<!-- /#page-wrapper -->
 	</div>
 
-	<!-- Modal HTML -->
-	<div id="associateDialog" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="associateDialogTitle"></h4>
-				</div>
-				<div class="modal-body">
-				<form class="form-horizontal">
-				    <div class="form-group">
-				        <label for="name" class="control-label col-xs-4">Name</label>
-				        <div class="col-xs-5">
-				            <input type="text" class="form-control" id="name" placeholder="Name"/>
-				        </div>
-				    </div>
-				    <div class="form-group">
-				        <label for="email" class="control-label col-xs-4">Email</label>
-				        <div class="col-xs-5">
-				            <input type="email" class="form-control" id="email" placeholder="Email"/>
-				        </div>
-				    </div>
-				    <div class="form-group">
-				        <label for="phone" class="control-label col-xs-4">Phone</label>
-				        <div class="col-xs-5">
-				            <input type="tel" class="form-control" id="phone" placeholder="Phone"/>
-				        </div>
-				    </div>
-				    <div class="form-group">
-				        <label for="address" class="control-label col-xs-4">Address</label>
-				        <div class="col-xs-5">
-				            <textarea class="form-control" id="address" placeholder="Address"></textarea>
-				        </div>
-				    </div>
-				</form>				
-				
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div th:replace="dialogs :: associate-dialog"></div>
 	<div th:replace="fragments :: scripts"></div>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script th:src="@{/js/associates.js}"></script>
