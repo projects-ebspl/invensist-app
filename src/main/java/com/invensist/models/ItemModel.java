@@ -3,17 +3,17 @@ package com.invensist.models;
 import com.invensist.enums.ItemType;
 
 public class ItemModel {
-	
+
 	private Integer id;
-	
-	private String code;
-	
+
+	private String itemCode;
+
 	private String description;
-	
-	private Double itemcost;
-	
-	private Double assemblycost;
-	
+
+	private Double itemCost;
+
+	private Double assemblyCost;
+
 	private ItemType itemType;
 
 	public Integer getId() {
@@ -24,12 +24,12 @@ public class ItemModel {
 		this.id = id;
 	}
 
-	public String getCode() {
-		return code;
+	public String getItemCode() {
+		return itemCode;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
 	}
 
 	public String getDescription() {
@@ -40,35 +40,35 @@ public class ItemModel {
 		this.description = description;
 	}
 
-	public Double getItemcost() {
-		return itemcost;
+	public Double getItemCost() {
+		return itemCost;
 	}
 
-	public void setItemcost(Double itemcost) {
-		this.itemcost = itemcost;
+	public void setItemCost(Double itemCost) {
+		this.itemCost = itemCost;
 	}
 
-	public Double getAssemblycost() {
-		return assemblycost;
+	public Double getAssemblyCost() {
+		return assemblyCost;
 	}
 
-	public void setAssemblycost(Double assemblycost) {
-		this.assemblycost = assemblycost;
-	}
+	public void setAssemblyCost(Double assemblyCost) {
+		this.assemblyCost = assemblyCost;
+	}	
 
 	public ItemType getItemType() {
 		return itemType;
 	}
 
-	public void setItemType(ItemType itemType) {
+	public void setItemType(ItemType itemType){
 		this.itemType = itemType;
 	}
-	
-	public String getType() {
+
+	public String getType(){
 		return this.itemType.getValue();
 	}
 	
-	public void setType(String type) {
-		this.itemType = ItemType.geTypeByValue(type);
+	public void setType(String itemType) {
+		this.itemType = ItemType.geTypeByValue(itemType);
 	}
 }

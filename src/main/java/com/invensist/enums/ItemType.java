@@ -16,7 +16,7 @@ public enum ItemType {
 	
 	public static ItemType geTypeByValue(String value) {
 		for (ItemType type : values()) {
-			if(type.equals(value)) {
+			if(type.value.equals(value)) {
 				return type;
 			}
 		}
