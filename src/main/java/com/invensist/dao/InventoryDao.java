@@ -29,5 +29,20 @@ public class InventoryDao extends BaseDao {
 					item.getItemType().name(), item.getId()});
 		}
 	}
+	
+	public void deleteItemById(Integer id) {
+		String sql = "delete from Item where id = ?";
+		getJdbcTemplate().update(sql, new Object[] {id});
+	}
+	
+	public Item getItemById(Integer id) {
+		String sql = "select id, name, type from Items where id = ?";
+		return getJdbcTemplate().queryForObject(sql, new Object[] {id}, new ItemRowMapper());
+	}
+	
+	public void removeItemFromUser(int userId, Integer itemId) {
+		String sql = "delete from UserItemMapping where user = ? and item = ?";
+		getJdbcTemplate().update(sql, new Object[] {userId, itemId});
+	}
 
 }

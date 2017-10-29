@@ -76,6 +76,7 @@ $(document).ready(function() {
 		if(rows.count() == 0) {
 			alert("Please select an item to delete.");
 		} else {
+			alert("yoi");
 			if(confirm("Are you sure you want to delete ?")) {
 				service.deleteItem({
 					itemId : (rows.data()[0][6].id)
@@ -117,26 +118,13 @@ $(document).ready(function() {
 			},
 			{
 				text: '<i class="fa fa-pencil fa-fw"></i>',
-				action: function () {
-					$("#itemDialogTitle").text("Edit Item");
-				},
+				action: $.editItem,
 				name: 'editItem',
 				titleAttr: 'Edit Item'
 			},
 			{
 				text: '<i class="fa fa-trash-o fa-fw"></i>',
-				action: function () {
-					var rows = table.rows({selected: true});
-					if(rows.count() == 0) {
-						alert("Please select an item to delete.");
-					} else {
-						service.deleteItem({
-							itemId : (rows.data()[0][5])
-						}).done(function(data) {
-							alert(data.message);
-						});
-					}
-				},
+				action: $.deleteItem,
 				titleAttr: 'Delete Item'
 			}
 			]
@@ -151,7 +139,7 @@ $(document).ready(function() {
 	.done(function(data){
 		for (item in data) {
 			table.row.add([data[item].itemCode, data[item].description, data[item].itemCost, 
-				data[item].assemblyCost, data[item].itemType, data[item].id]).draw(false);
+				data[item].assemblyCost, data[item].itemType, data[item].id], data[item]).draw(false);
 		}
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
@@ -164,5 +152,5 @@ $(document).ready(function() {
 			$(".item-properties").removeClass("hidden");
 		}
 		table.columns.adjust().draw();
-	} );
+	});
 });

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.invensist.models.AssociateModel;
 import com.invensist.models.ItemModel;
-import com.invensist.models.ItemSelectionModel;
 import com.invensist.models.MessageModel;
 import com.invensist.models.StoreModel;
 import com.invensist.models.StoreSelectionModel;
@@ -128,8 +127,8 @@ public class DataController {
 	}
 	
 	@PostMapping(value = "/delete-item.json", produces = "application/json")
-	public MessageModel deleteItem(@RequestParam Integer itemId) {
-		// TODO Delete
-		return new MessageModel().withMessage("Item is deleted successfully");
+	public List<ItemModel> deleteItem(@RequestParam Integer itemId) {
+		inventoryService.deleteItem(itemId);
+		return getItems();
 	}
 }

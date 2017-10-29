@@ -3,6 +3,7 @@ package com.invensist.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.invensist.dao.InventoryDao;
@@ -19,9 +20,23 @@ public class InventoryService extends Service  {
 		Item item = this.toItem(itemModel);
 		inventoryDao.saveItem(item);
 	}
-
+	
 	public List<ItemModel> getItems() {
 		return inventoryDao.getAllItems().stream().map(item -> toItemModel(item)).collect(Collectors.toList());
+	}
+	public void deleteItems(String stringIds) {
+		String [] ids = stringIds.split(",");
+		for(String id:ids){			
+			this.deleteItem(Integer.parseInt(id));			
+		}		
+	}
+	
+	public void deleteItem(Integer id) {
+		inventoryDao.deleteItemById(id);		
+	}
+	
+	public ItemModel getItem(Integer id) {
+		return toItemModel(inventoryDao.getItemById(id));
 	}
 
 	private ItemModel toItemModel(Item item){
