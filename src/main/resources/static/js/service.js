@@ -87,7 +87,6 @@ var ItemService = Service.extend(function() {
 	};
 	
 	this.deleteItem = function(itemId) {
-		alert(itemId);
 		return this.post("/delete-item.json", itemId);
 	};
 });

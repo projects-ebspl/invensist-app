@@ -76,10 +76,9 @@ $(document).ready(function() {
 		if(rows.count() == 0) {
 			alert("Please select an item to delete.");
 		} else {
-			alert("yoi");
 			if(confirm("Are you sure you want to delete ?")) {
 				service.deleteItem({
-					itemId : (rows.data()[0][6].id)
+					itemId : (rows.data()[0][5])
 				}).done(function(result) {
 					$.refreshItemTable();
 				});
