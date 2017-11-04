@@ -4,7 +4,7 @@ $(document).ready(function() {
 		service
 		.getStores()
 		.done(function(data){
-			for (i = 0; i < data.length; i++) {
+			for (let i = 0; i < data.length; i++) {
 				var store = data[i];
 				table.row.add([store.name, store.type,store.id, store]).draw(false);
 			}
@@ -14,7 +14,6 @@ $(document).ready(function() {
 			console.log("refreshStoreTable:" + jqXHR.status);
 		});
 	};
-
 	
 	$.refreshUsersTable = function(storeId) {
 		usersTable.rows().remove();
@@ -70,7 +69,7 @@ $(document).ready(function() {
 	$.deleteStore = function() {
 		var rows = table.rows({selected: true});
 		if(rows.count() == 0) {
-			alert("Please select a user to delete.");
+			alert("Please select a store to delete.");
 		} else {
 			if(confirm("Are you sure you want to delete ?")) {
 				service.deleteStore({

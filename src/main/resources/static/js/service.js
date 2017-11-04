@@ -87,7 +87,12 @@ var ItemService = Service.extend(function() {
 		return this.getJson("/items.json");
 	};
 	
+	this.addItem = function(item) {
+		return this.post("/add-item.json", item);
+	};
+	
 	this.deleteItem = function(itemId) {
 		return this.post("/delete-item.json", itemId);
 	};
 });
+

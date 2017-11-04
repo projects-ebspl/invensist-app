@@ -10,12 +10,8 @@ import org.springframework.stereotype.Service;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.invensist.dao.ConfigDao;
-import com.invensist.entities.Associate;
-import com.invensist.entities.Item;
 import com.invensist.entities.Store;
 import com.invensist.entities.User;
-import com.invensist.models.AssociateModel;
-import com.invensist.models.ItemModel;
 import com.invensist.models.StoreModel;
 import com.invensist.models.StoreSelectionModel;
 import com.invensist.models.UserModel;
@@ -71,7 +67,7 @@ public class ConfigService extends com.invensist.service.Service {
 	public void deleteUser(int id){
 		configDao.deleteUserById(id);
 	}
-
+	
 	
 	public void deleteStores(String stringIds) {
 		String [] ids = stringIds.split(",");
@@ -94,9 +90,7 @@ public class ConfigService extends com.invensist.service.Service {
 	public List<StoreModel> getStores() {		
 		return configDao.getAllStores().stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
 	}
-	public List<ItemModel> getItems() {		
-		return configDao.getAllItems().stream().map(item -> toItemModel(item)).collect(Collectors.toList());
-	}
+	
 	public List<StoreModel> getStoresForUser(Integer userId) {		
 		return configDao.getStoresForUser(userId).stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
 	}
@@ -210,19 +204,6 @@ public class ConfigService extends com.invensist.service.Service {
 		return storeModel;
 	}
 	
-	private ItemModel toItemModel(Item item){
-		if(item == null){
-			return null;
-		}
-		ItemModel itemModel = new ItemModel();
-		itemModel.setId(item.getId());
-		itemModel.setCode(item.getCode());
-		itemModel.setDescription(item.getDescription());
-		itemModel.setItemcost(item.getItemcost());
-		itemModel.setAssemblycost(item.getAssemblycost());
-		itemModel.setItemType(item.getType());
-		return itemModel;
-	}
 	private Store toStore(StoreModel storeModel) {
 		if(storeModel == null){
 			return null;

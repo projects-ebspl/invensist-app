@@ -81,49 +81,63 @@
 					<h4 class="modal-title" id="itemDialogTitle"></h4>
 				</div>
 				<div class="modal-body">
-				<form class="form-horizontal">
-				    <div class="form-group">
-				        <label for="itemCode" class="control-label col-xs-4">Item Code</label>
-				        <div class="col-xs-5">
-				            <input type="text" class="form-control" id="itemCode" placeholder="Item Code"/>
-				        </div>
-				    </div>
-				    <div class="form-group">
-				        <label for="description" class="control-label col-xs-4">Description</label>
-				        <div class="col-xs-5">
-				            <input type="text" class="form-control" id="description" placeholder="Description"/>
-				        </div>
-				    </div>
-				    <div class="form-group">
-				        <label for="itemCost" class="control-label col-xs-4">Item Cost</label>
-				        <div class="col-xs-5">
-				            <input type="text" class="form-control" id="itemCost" placeholder="Item Cost"/>
-				        </div>
-				    </div>
-				    <div class="form-group">
-				        <label for="assemblyCost" class="control-label col-xs-4">Assembly Cost</label>
-				        <div class="col-xs-5">
-				            <input type="text" class="form-control" id="assemblyCost" placeholder="Assembly Cost"/>
-				        </div>
-				    </div>
-				    <div class="form-group">
-				        <label for="type" class="control-label col-xs-4">Type</label>
-				        <div class="col-xs-5">
-				            <select class="form-control" id="type">
-				            	<option th:each="type : ${itemTypes}" th:value="${type}" th:text="${type.value}"></option>
-				            </select>
-				        </div>
-				    </div>
-				</form>				
-				
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
+					<form class="form-horizontal" id="itemsForm"
+						novalidate="novalidate" name="item">
+						<div class="form-group">
+							<label for="itemCode" class="control-label col-xs-4">Item
+								Code</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" id="itemCode"
+									name="itemCode" placeholder="Item Code" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="description" class="control-label col-xs-4">Description</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" id="description"
+									name="description" placeholder="Description" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="itemCost" class="control-label col-xs-4">Item
+								Cost</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" id="itemCost"
+									name="itemCost" placeholder="Item Cost" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="assemblyCost" class="control-label col-xs-4">Assembly
+								Cost</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" id="assemblyCost"
+									name="assemblyCost" placeholder="Assembly Cost" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="itemType" class="control-label col-xs-4">Item Type</label>
+							<div class="col-xs-5">
+								<select class="form-control" id="type" name="type" >
+									<option th:each="itemType : ${itemTypes}" th:value="${itemType.value}"
+										th:text="${itemType.value}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary" id="saveItem">Save
+								changes</button>
+						</div>
+					</form>
+
+				</div>				
 			</div>
 		</div>
 	</div>
+	<!-- Modal HTML -->
+	<div th:replace="dialogs :: item-dialog"></div>
+	<div th:replace="dialogs :: user-store-dialog"></div>
 	<div th:replace="fragments :: scripts"></div>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script th:src="@{/js/items.js}"></script>
