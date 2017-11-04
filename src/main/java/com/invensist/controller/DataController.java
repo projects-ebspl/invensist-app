@@ -1,6 +1,5 @@
 package com.invensist.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,21 +97,11 @@ public class DataController {
 	}
 	@GetMapping(value = "/associates.json", produces = "application/json")
 	public @ResponseBody List<AssociateModel> getAssociates() {
-		ArrayList<AssociateModel> associates = new ArrayList<>();
-		for (int i = 1; i <= 20; i++) {
-			AssociateModel model = new AssociateModel();
-			model.setId(i);
-			model.setName("NAME" + i);
-			model.setEmail("email" + i);
-			model.setPhone("phone" + i);
-			model.setAddress("address" + i);
-			associates.add(model);
-		}
-		return associates;
+		return configService.getAssociates();
 	}
 	@PostMapping(value = "/delete-associate.json", produces = "application/json")
 	public MessageModel deleteAssociate(@RequestParam Integer associateId) {
-		// TODO Delete
+		configService.deleteAssociate(associateId);
 		return new MessageModel().withMessage("Associate is deleted successfully");
 	}
 	@GetMapping(value = "/items.json", produces = "application/json")
@@ -130,5 +119,10 @@ public class DataController {
 	public List<ItemModel> deleteItem(@RequestParam Integer itemId) {
 		inventoryService.deleteItem(itemId);
 		return getItems();
+	}
+	
+	@PostMapping("/save-associate.json")
+	public void saveAssociate(@ModelAttribute("associate")AssociateModel associate, BindingResult bindingResult) {
+		configService.saveAssociate(associate);
 	}
 }

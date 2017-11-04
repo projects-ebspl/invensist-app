@@ -108,3 +108,40 @@ var DualSelector = Class.extend(function(){
     	return data;
     };
 });
+
+var Properties = Class.extend(function(){
+	
+	this.widthClass = "col-xs-6";
+	
+	this.constructor = function(dom){
+		this.$DOM = dom;
+	};
+	
+	/*
+					<div class="form-group">
+						<label for="firstName" class="control-label col-xs-4">First
+							Name *</label>
+						<div class="col-xs-5">
+							<input type="text" class="form-control" id="firstName"
+								name="firstName" placeholder="First Name" required="required" />
+						</div>
+					</div>
+	 */
+	this.refresh = function() {
+		this.$DOM.empty();
+		if($.isDefined(this.data)) {
+			for(var i = 0; i < this.data.length; i++) {
+				var pair = this.data[i];
+				var formGroup = $("<div/>").addClass("form-group").appendTo(this.$DOM);
+				$("<label/>").addClass("control-label col-lg-5").text(pair.label).appendTo(formGroup);
+				var inputHolder = $("<div/>").addClass("col-lg-5").appendTo(formGroup);
+				$("<p/>").addClass("form-control-static").text(pair.value).appendTo(inputHolder);
+			}
+		}
+	};
+	
+	this.setData = function(data){
+		this.data = data;
+		this.refresh();
+	};
+});
