@@ -4,7 +4,7 @@ $(document).ready(function() {
 		service
 		.getStores()
 		.done(function(data){
-			for (i = 0; i < data.length; i++) {
+			for (let i = 0; i < data.length; i++) {
 				var store = data[i];
 				table.row.add([store.name, store.type,store.id, store]).draw(false);
 			}

@@ -4,7 +4,7 @@ $(document).ready(function() {
 		service
 		.getItems()
 		.done(function(data){
-			for (i = 0; i < data.length; i++) { 
+			for (let i = 0; i < data.length; i++) { 
 				var item = data[i];
 				table.row.add([item.itemCode, 
 				               item.description, 
@@ -133,17 +133,7 @@ $(document).ready(function() {
 	table.button( 'editItem:name' ).nodes().attr('href','#itemDialog').attr('data-toggle', 'modal')
 	
 	
-	service
-	.getItems()
-	.done(function(data){
-		for (item in data) {
-			table.row.add([data[item].itemCode, data[item].description, data[item].itemCost, 
-				data[item].assemblyCost, data[item].itemType, data[item].id], data[item]).draw(false);
-		}
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		alert(jqXHR.status);
-	});
+	$.refreshItemTable();
 
 
 	table.on( 'select', function ( e, dt, type, indexes ) {
