@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.invensist.dao.ConfigDao;
+import com.invensist.entities.Associate;
 import com.invensist.entities.Store;
 import com.invensist.entities.User;
+import com.invensist.models.AssociateModel;
 import com.invensist.models.StoreModel;
 import com.invensist.models.StoreSelectionModel;
 import com.invensist.models.UserModel;
